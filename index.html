@@ -182,6 +182,17 @@ body.menu-on .wrap{max-width:none;padding:0}
 .mn-prof .pf-nm{font-family:"Pixelify Sans",var(--display);font-weight:700;font-size:1.75cqw;line-height:1.05;color:#FFE7A3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 .15cqw 0 #3a2a0a}
 .mn-prof .pf-st{font-size:1.05cqw;color:#d8d0ff;white-space:nowrap}
 .mn-stage.noimg .mn-prof{left:2%;top:2%}
+/* caixa de sugestões, no canto de cima à direita */
+.mn-sug{position:absolute;right:.55%;top:1%;height:7.6%;display:flex;align-items:center;gap:.8cqw;padding:0 1.2cqw 0 .9cqw;margin:0;cursor:pointer;color:#FFE7A3;font-family:"Pixelify Sans",var(--display);font-weight:700;font-size:1.5cqw;letter-spacing:.06em;text-transform:uppercase;
+  background:linear-gradient(#1c1640,#0d0a22);border:.22cqw solid #F2C14E;border-radius:.9cqw;box-shadow:0 0 0 .15cqw #3a2a0a,0 .4cqw 1.2cqw rgba(0,0,0,.55);transition:box-shadow .15s}
+.mn-sug:hover,.mn-sug:focus-visible{outline:none;box-shadow:0 0 0 .25cqw rgba(255,236,170,.9),0 0 2.4cqw rgba(255,200,90,.7)}
+.mn-sug svg{width:2.2cqw;height:2.2cqw;flex:none}
+.mn-sug small{display:block;font-family:var(--body);font-size:.85cqw;font-weight:700;letter-spacing:0;text-transform:none;color:#b9b0dd}
+.mn-stage.noimg .mn-sug{right:2%;top:2%}
+.sg-txt{font:inherit;width:100%;box-sizing:border-box;min-height:130px;resize:vertical;padding:10px 12px;border-radius:10px;border:2px solid #4a3f8f;background:#0d0a22;color:#fff}
+.sg-txt:focus{outline:none;border-color:#F2C14E}
+.sg-old{padding:10px 12px;background:rgba(0,0,0,.25);border:2px solid #3a3170;border-radius:10px;white-space:pre-wrap;color:#d8d0ff}
+.sg-cnt{font-size:13px;color:#9f96c8;text-align:right}
 .pf-box{gap:10px}
 .pf-lab{display:flex;flex-direction:column;gap:6px;font-weight:700;color:#F7D774}
 .pf-lab input{font:inherit;font-weight:400;padding:10px 12px;border-radius:10px;border:2px solid #4a3f8f;background:#0d0a22;color:#fff}
@@ -210,6 +221,95 @@ body.menu-on .wrap{max-width:none;padding:0}
 /* ---------- batalha: palco 16:9 (tudo medido em --u = 1% da altura do palco) ---------- */
 body.bt-on{overflow:hidden}
 body.bt-on .wrap{max-width:none;padding:0}
+/* Telas antes da batalha (11/11/2026): configuração (treino, entrada online, sala) e escolha de personagem, no visual da batalha. */
+.ps{--gold:#F2C14E;--gold2:#FFE7A3;--pix:"Pixelify Sans","Lilita One",system-ui,sans-serif;position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;background:#05040b;color:#EDE7FF;overflow:hidden}
+.ps>*{position:relative}
+.ps>.ps-bg{position:absolute;inset:-3%;background:center/cover no-repeat;filter:brightness(.34) saturate(.85)}
+.ps-top{display:flex;align-items:center;gap:12px;padding:10px 16px;background:linear-gradient(#120d26,rgba(8,6,15,.8));border-bottom:2px solid #c99a3c;flex:none}
+.ps-ttl{flex:1;min-width:0;text-align:center;font-family:var(--pix);font-weight:700;color:var(--gold2);font-size:clamp(16px,2.2vw,26px);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 2px 0 #3a2a0a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-top .ps-sub{max-width:30%;text-align:right}
+.ps-btn,.ps .btn{font-family:var(--pix);font-weight:700;font-size:15px;color:var(--gold2);padding:8px 14px;border:2px solid #6b5420;border-radius:8px;background:linear-gradient(#2a2040,#141024);box-shadow:none;cursor:pointer;width:auto;letter-spacing:.02em}
+.ps-btn:hover:not(:disabled),.ps .btn:hover:not(:disabled){border-color:var(--gold);background:linear-gradient(#352a50,#1a1430)}
+.ps-btn.gold,.ps .btn.primary{border-color:var(--gold);color:var(--gold2);background:linear-gradient(#4a3509,#1e1504);box-shadow:0 0 14px rgba(242,193,78,.35)}
+.ps-btn:disabled,.ps .btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.ps-btn.big,.ps .btn.big{font-size:19px;padding:11px 24px;text-transform:uppercase}
+.ps .btn.big{width:100%}
+.ps-main{flex:1;min-height:0;display:grid;gap:16px;padding:16px}
+.ps-col{position:relative;display:flex;flex-direction:column;min-height:0;min-width:0;padding:12px 14px;border:3px solid #c99a3c;border-radius:10px;background:linear-gradient(rgba(26,20,51,.94),rgba(13,10,30,.94));box-shadow:inset 0 0 0 2px #2a1f10,inset 0 0 0 4px rgba(242,193,78,.28),0 6px 24px rgba(0,0,0,.5)}
+.ps-col::before,.ps-col::after{content:'';position:absolute;width:13px;height:13px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 8px rgba(242,193,78,.7);pointer-events:none;z-index:4}
+.ps-col::before{top:-8px;left:-8px}.ps-col::after{bottom:-8px;right:-8px}
+.ps-h,.ps h3{display:flex;align-items:center;gap:8px;flex:none;font-family:var(--pix);font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;font-size:17px;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(242,193,78,.25)}
+.ps-sub,.ps .hint,.ps .wait{color:#b9b0dd;font-size:14px;margin:4px 0}
+.ps .err{color:#ff9a9a;font-size:14px;margin:4px 0;min-height:1em}
+.ps .stack{display:flex;flex-direction:column;gap:10px}
+.ps .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ps label{display:flex;flex-direction:column;gap:6px;font-family:var(--pix);font-weight:700;color:var(--gold2);font-size:15px}
+.ps label.inline{flex-direction:row;align-items:center;gap:8px;font-family:var(--body);font-weight:500;color:#ddd5ff;font-size:14px}
+.ps input:not([type=checkbox]){font:inherit;font-family:var(--body);font-size:16px;font-weight:500;padding:9px 12px;border:2px solid #4a3f8f;border-radius:8px;background:#0d0a1e;color:#fff;width:100%;box-sizing:border-box;outline:none}
+.ps input:focus{border-color:var(--gold)}
+.ps .seg{display:inline-flex;flex-wrap:wrap;gap:6px;border:0;border-radius:0;overflow:visible}
+.ps .seg button{font-family:var(--pix);font-weight:700;font-size:15px;padding:6px 12px;border:2px solid #4a3f8f;border-radius:6px;background:#141024;color:#d8d0ff;cursor:pointer}
+.ps .seg button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold2);background:#2a1f08}
+.ps .seg button:disabled{opacity:.4;cursor:default}
+.ps .prow{background:#141024;border:1px solid #2d2557;color:#EDE7FF;font-size:15px}
+.ps .prow .st{color:#9f96c8}
+.ps .netinfo{color:#9f96c8;font-family:var(--body);text-transform:none;letter-spacing:0;font-size:13px;margin-left:auto}
+.ps-center{place-items:center;align-content:center}
+.ps-narrow{width:min(520px,100%);box-sizing:border-box}
+.ps-lobby{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-content:start;overflow:auto}
+.ps-code{display:flex;align-items:center;gap:12px}
+.ps-code span{font-family:var(--pix);font-weight:700;font-size:44px;letter-spacing:.18em;color:var(--gold2);text-transform:uppercase;text-shadow:0 3px 0 #3a2a0a,0 0 18px rgba(242,193,78,.35)}
+/* escolha de personagem: miniaturas à esquerda, o escolhido grande à direita (arte ao fundo, sprite na frente) e a descrição embaixo */
+.ps-pick{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+.ps-filt{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;flex:none}
+.ps-filt button{font-family:var(--pix);font-weight:700;font-size:13px;padding:3px 10px;border:2px solid #3a3170;border-radius:6px;background:#141024;color:#d8d0ff;cursor:pointer}
+.ps-filt button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold2);background:#2a1f08}
+.ps-grid{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px;align-content:start;padding:4px 4px 8px}
+.ps-th{position:relative;height:0;padding:0 0 100%;border:2px solid #3a3170;border-radius:8px;background:#0d0a1e;cursor:pointer;overflow:hidden;transition:transform .08s,border-color .08s}
+.ps-th:hover{border-color:#8a7ad0;transform:translateY(-1px)}
+.ps-th .ci.cv{position:absolute;inset:0;border-radius:0}
+.ps-th .nm{position:absolute;left:0;right:0;bottom:0;padding:12px 3px 3px;font-size:11px;font-weight:800;line-height:1.1;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.9));color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-th .st{position:absolute;top:2px;left:4px;font-size:10px;letter-spacing:-1px;color:var(--gold);text-shadow:0 1px 2px #000,0 0 3px #000}
+.ps-th.off .ci{filter:grayscale(1) brightness(.4)}
+.ps-th .lk{position:absolute;inset:0;display:grid;place-items:center;font-size:22px}
+.ps-th .tk{position:absolute;left:0;right:0;top:40%;font-size:10px;font-weight:800;text-align:center;color:#ffc0c0;text-shadow:0 1px 2px #000}
+.ps-th.cur{border-color:var(--gold2);box-shadow:0 0 0 2px var(--gold),0 0 14px rgba(242,193,78,.6)}
+.ps-th.sel::after{content:attr(data-n);position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#2a1a00;font-family:var(--pix);font-weight:700;font-size:13px;display:grid;place-items:center;box-shadow:0 0 6px #000}
+.ps-show{position:relative;flex:none;height:min(44vh,360px);border-radius:8px;overflow:hidden;border:2px solid #3a3170;background:#0d0a1e}
+.ps-art{position:absolute;inset:0;background:center 22%/cover no-repeat;filter:brightness(.8) saturate(1.05)}
+.ps-show::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,4,11,.75),transparent 55%),linear-gradient(transparent 50%,rgba(5,4,11,.85));pointer-events:none;z-index:1}
+.ps-floor{position:absolute;right:8%;bottom:5%;width:36%;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);z-index:2}
+.ps-spr{position:absolute;right:26%;bottom:8%;width:0;height:0;z-index:3;transform:scaleX(-1)}
+.ps-spr i{position:absolute;display:block;background-repeat:no-repeat;image-rendering:pixelated;filter:drop-shadow(0 0 3px rgba(0,0,0,.9)) drop-shadow(0 0 10px rgba(242,193,78,.25))}
+.ps-plate{position:absolute;left:14px;bottom:12px;right:45%;z-index:4}
+.ps-plate .n{font-family:var(--pix);font-weight:700;font-size:clamp(20px,2.5vw,32px);line-height:1.05;color:var(--gold2);text-shadow:0 2px 0 #3a2a0a,0 0 12px rgba(0,0,0,.9)}
+.ps-plate .u{font-size:13px;color:#e4dcff;text-shadow:0 1px 3px #000}
+.ps-plate .stars{color:var(--gold);font-size:18px;text-shadow:0 1px 3px #000}
+.ps-act{display:flex;align-items:center;gap:10px;margin:10px 0 4px;flex:none}
+.ps-desc{flex:1;min-height:0;overflow:auto;padding-right:4px}
+.ps-desc .bio{font-size:14px;color:#ddd5ff;margin:4px 0 10px}
+.ps-sk{display:grid;gap:6px}
+.ps-sk .r{border-left:3px solid var(--kc);background:#141024;padding:5px 9px;border-radius:4px}
+.ps-sk .r b{font-family:var(--pix);color:var(--gold2);font-size:14px}
+.ps-sk .r small{color:#9f96c8;font-size:11px;margin-left:6px;text-transform:uppercase;font-weight:800}
+.ps-sk .r p{margin:2px 0 0;font-size:13px;color:#cfc7f0;line-height:1.35}
+.ps-sk .r p.m{font-size:12px;color:#9f96c8}
+.ps-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;flex:none}
+.ps-tools input{flex:1 1 200px;width:auto!important;padding:6px 10px!important;font-size:14px!important}
+.ps-tools .ps-filt{margin:0}
+.ps-grid .gt{grid-column:1/-1;font-family:var(--pix);font-weight:700;color:var(--gold);font-size:14px;margin:6px 0 0;padding-bottom:3px;border-bottom:1px solid rgba(242,193,78,.2)}
+.ps-grid .gt span{color:#9f96c8;font-size:12px}
+.ps-th .no{position:absolute;top:2px;right:4px;font-family:var(--pix);font-size:10px;color:#cfc7f0;text-shadow:0 1px 2px #000}
+.ps-th.sel .no{display:none}
+.ps-bot{display:flex;align-items:center;gap:12px;padding:10px 16px;background:linear-gradient(rgba(8,6,15,.8),#120d26);border-top:2px solid #c99a3c;flex:none}
+.ps-slots{display:flex;gap:8px;flex:1;min-width:0;align-items:center}
+.ps-slot{position:relative;width:64px;height:64px;flex:none;box-sizing:border-box;border:2px dashed #4a3f8f;border-radius:8px;display:grid;place-items:center;font-family:var(--pix);font-weight:700;font-size:20px;color:#5f5788;overflow:hidden;padding:0;background:#0d0a1e}
+.ps-slot.full{border:2px solid var(--gold);cursor:pointer;box-shadow:0 0 10px rgba(242,193,78,.35)}
+.ps-slot.full .ci.cv{position:absolute;inset:0;border-radius:0}
+.ps-slot.full:hover::after{content:'✕';position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);color:#ffb3b3;font-size:22px}
+.ps-bot .ps-sub{flex:none}
+@media (max-width:760px){.ps-pick,.ps-lobby{grid-template-columns:1fr;overflow:auto}.ps-pick .ps-col:first-child{max-height:46vh}.ps-show{height:240px}.ps-desc{overflow:visible}.ps-top .ps-sub,.ps-bot .ps-sub{display:none}.ps-slot{width:52px;height:52px}.ps-btn.big{font-size:16px;padding:10px 14px}}
+@media (max-height:560px) and (min-width:761px){.ps-top{padding:5px 12px}.ps-ttl{font-size:16px}.ps-main{gap:12px;padding:10px 12px}.ps-bot{padding:5px 12px}.ps-bot .ps-sub{display:none}.ps-slot{width:44px;height:44px}.ps-show{height:max(150px,52vh)}.ps-pick #info{overflow:auto}.ps-pick .ps-desc{flex:none;overflow:visible}.ps-h{font-size:14px;margin-bottom:5px;padding-bottom:4px}.ps-filt{margin-bottom:5px}.ps-filt button{font-size:12px;padding:2px 8px}.ps-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}.ps-btn.big{font-size:16px;padding:8px 16px}.ps-col{padding:8px 10px}}
 .bt{--pix:"Pixelify Sans","Lilita One",system-ui,sans-serif;--gold:#F2C14E;--gold2:#FFE7A3;--line:#2d2557;--line2:#4a3f8f;position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:#05040b;color:#EDE7FF;font-family:var(--body);-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .bt button{font:inherit;color:inherit}
 .bt{--f:var(--u,5.4px)}
@@ -497,7 +597,7 @@ const CHARS=[
     {id:'izanami',n:'Izanami',kind:'ataque',tags:['efeito','magica'],tg:'enemy',maxT:1,stun:2,req:'mangekyo',reduce:{id:'mangekyo',by:99},
       d:'O alvo fica 2 turnos sem agir. Precisa da Mangekyo Sharingan ativa, e o preço é alto: a Mangekyo acaba na hora.'},
     {id:'corvos',n:'Clone de corvos',kind:'counter',tags:['magica'],tg:'self',counter:1,cmode:'block',charges:2,
-      d:'Quando Itachi é atacado, bloqueia o dano e os efeitos desse ataque.'},
+      d:'Quando Itachi é atacado, bloqueia o dano e os efeitos desse ataque, seja físico ou mágico. Como todo counter, não dá pra usar na rodada em que ele já usou uma técnica (como a Mangekyo).'},
     {id:'susanoo',n:'Susanoo',kind:'tecnica',tags:['magica'],tg:'self',buff:{turns:5,dmgMult:2,noSelf:'mangekyo'},charges:1,req:'mangekyo',
       d:'Precisa da Mangekyo Sharingan ativa. Fica ativa por 5 turnos. Enquanto estiver ativa, a Mangekyo Sharingan não tira vida do Itachi e todo dano que ele causa dobra.'}
   ]},
@@ -586,8 +686,8 @@ const CHARS=[
       d:'Todo dano que Luffy causa triplica. Dura 5 turnos. Quando acaba, fica 10 turnos sem poder ser usada de novo. Só 1 Gear fica ativo por vez: ativar outro desliga este.'},
     {id:'pistol',n:'Gomu Gomu Pistol',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:150,
       d:'Causa 150 de dano.'},
-    {id:'gear5',n:'Gear Five',short:'Gear 5',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,invul:1,cdAfter:20,excl:'gear'},
-      d:'Luffy fica invulnerável por 5 turnos: ataques, counters e técnicas dos inimigos não fazem nada nele, e ele não pode ser escolhido como alvo. Quando acaba, fica 20 turnos sem poder ser usada de novo. Só 1 Gear fica ativo por vez: ativar outro desliga este.'},
+    {id:'gear5',n:'Gear Five',short:'Gear 5',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,invul:1,cdAfter:20,excl:'gear'},cleanseSelf:1,
+      d:'Tira os efeitos negativos que estavam no Luffy. Ele fica invulnerável por 5 turnos: ataques, counters e técnicas dos inimigos não fazem nada nele, e ele não pode ser escolhido como alvo. Quando acaba, fica 20 turnos sem poder ser usada de novo. Só 1 Gear fica ativo por vez: ativar outro desliga este.'},
     {id:'haki',n:'Haki do Rei',kind:'tecnica',tags:[],tg:'all',stun:1,charges:1,
       d:'Luffy solta o Haki do Rei, e todos os inimigos ficam 1 turno sem agir.'}
   ]},
@@ -637,7 +737,7 @@ const CHARS=[
     {id:'onda',n:'Onda Relâmpago',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:300,charges:1,
       d:'Causa 300 de dano.'}
   ]},
-  {i:'escanor',startTech:'sunshine',n:'Escanor',u:'Nanatsu no Taizai',stars:4,hp:HP_BASE,sk:[
+  {i:'escanor',startTech:'sunshine',n:'Escanor',u:'The Seven Deadly Sins',stars:4,hp:HP_BASE,sk:[
     {id:'cruelsun',n:'Cruel Sun',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:150,
       d:'Escanor lança um pequeno sol no inimigo. Causa 150 de dano.'},
     {id:'sunshine',n:'Sunshine',kind:'tecnica',tags:['magica'],tg:'self',auto:1,buff:{turns:7,ramp:[[2,1.5],[3,2],[5,3]],chain:'theone',taken:0.7},
@@ -684,8 +784,8 @@ const CHARS=[
       d:'Causa 200 de dano, e All Might perde 50 de vida.'},
     {id:'newhampshire',n:'New Hampshire Smash',short:'N. Hampshire',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:2,dmg:200,selfCost:50,charges:3,
       d:'Causa 200 de dano em até 2 inimigos, e All Might perde 50 de vida.'},
-    {id:'usmash',n:'United States of Smash',short:'U.S. Smash',kind:'ataque',tags:['fisica','magica'],tg:'enemy',maxT:1,dmg:800,pierce:1,charges:1,transform:'toshinori',
-      d:'Causa 800 de dano e não pode ser bloqueado por counters. Depois do golpe, All Might vira Toshinori: fica com a mesma vida, e todos os efeitos que estavam nele acabam.'},
+    {id:'usmash',n:'United States of Smash',short:'U.S. Smash',kind:'ataque',tags:['fisica','magica'],tg:'enemy',maxT:1,dmg:800,charges:1,transform:'toshinori',
+      d:'Causa 800 de dano. Depois do golpe, mesmo que seja bloqueado por um counter, All Might vira Toshinori: fica com a mesma vida, e todos os efeitos que estavam nele acabam.'},
     {id:'simbolo',n:'Símbolo da Paz',short:'Símbolo',kind:'counter',tags:[],tg:'self',counter:1,cmode:'block',charges:1,
       d:'Quando All Might é atacado, ele aguenta firme sorrindo: bloqueia o dano e os efeitos desse ataque.'}
   ]},
@@ -790,39 +890,39 @@ const CHARS=[
     {id:'dragonforce',n:'Dragonforce',kind:'tecnica',tags:[],tg:'self',buff:{turns:3,dmgMult:2,invul:1,cdAfter:15},
       d:'Por 3 turnos, todo dano que o Natsu causa dobra e ele fica invulnerável. Quando acaba, fica 15 turnos sem poder ser usada de novo.'}
   ]},
-  {i:'lucy',n:'Lucy',u:'Fairy Tail',stars:3,hp:HP_BASE,soon:1,sk:[
+  {i:'lucy',n:'Lucy',u:'Fairy Tail',stars:3,hp:HP_BASE,sk:[
     {id:'sagittarius',n:'Sagittarius Form',short:'Sagittarius',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:50,
       d:'Causa 50 de dano.'},
     {id:'starshot',n:'Star Shot',kind:'ataque',tags:['fisica','magica'],tg:'all',dmg:80,charges:6,
       d:'Causa 80 de dano em todos os inimigos.'},
-    {id:'taurus',n:'Taurus Form',short:'Taurus',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,cdAfter:8},
-      d:'Dura 5 turnos e libera a Onda da Terra e o Lucy Punch. Quando acaba, fica 8 turnos sem poder ser usada de novo.'},
+    {id:'taurus',n:'Taurus Form',short:'Taurus',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,dmgMult:2,cdAfter:5},
+      d:'Dura 5 turnos: todo dano que a Lucy causa dobra, e libera a Onda da Terra e o Lucy Punch. Quando acaba, fica 5 turnos sem poder ser usada de novo.'},
     {id:'ondaterra',n:'Onda da Terra',kind:'ataque',tags:['fisica'],tg:'all',dmg:100,stun:1,charges:2,req:'taurus',
       d:'Causa 100 de dano em todos os inimigos, e todos ficam 1 turno sem agir. Precisa da Taurus Form ativa.'},
     {id:'lucypunch',n:'Lucy Punch',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:200,charges:2,req:'taurus',
       d:'Causa 200 de dano. Precisa da Taurus Form ativa.'}
   ]},
-  {i:'shangtsung',n:'Shang Tsung',u:'Mortal Kombat',stars:2,hp:HP_BASE,soon:1,sk:[
-    {id:'skulls',n:'Flaming Skulls',short:'Skulls',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:50,
-      d:'Causa 50 de dano.'},
+  {i:'shangtsung',n:'Shang Tsung',u:'Mortal Kombat',stars:2,hp:HP_BASE,sk:[
+    {id:'skulls',n:'Flaming Skulls',short:'Skulls',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:100,
+      d:'Causa 100 de dano.'},
     {id:'soulsteal2',n:'Soul Steal',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:100,drain:100,cd:3,
       d:'Causa 100 de dano e Shang Tsung recupera 100 de vida, se acertar. Depois de usar, fica 3 turnos sem poder ser usado de novo.'},
-    {id:'erupcao',n:'Erupção',kind:'ataque',tags:['magica'],tg:'all',dmg:50,cd:6,
-      d:'Causa 50 de dano em todos os inimigos. Depois de usar, fica 6 turnos sem poder ser usada de novo.'},
-    {id:'captura',n:'Captura da Alma',short:'Captura',kind:'tecnica',tags:['magica'],tg:'enemy',maxT:1,ctrl:1,needHeal:200,
-      d:'Controla a próxima vez do inimigo: Shang Tsung escolhe 1 ataque dele e em quem do próprio time dele vai acertar. Só pode ser usada a cada 200 de vida recuperada.'}
+    {id:'erupcao',n:'Erupção',kind:'ataque',tags:['magica'],tg:'all',dmg:100,cd:4,
+      d:'Causa 100 de dano em todos os inimigos. Depois de usar, fica 4 turnos sem poder ser usada de novo.'},
+    {id:'captura',n:'Captura da Alma',short:'Captura',kind:'tecnica',tags:['magica'],tg:'enemy',maxT:1,ctrl:1,needHeal:100,
+      d:'Controla a próxima vez do inimigo: Shang Tsung escolhe 1 ataque dele e em quem do próprio time dele vai acertar. Só pode ser usada a cada 100 de vida recuperada.'}
   ]},
   {i:'scorpion',n:'Scorpion',u:'Mortal Kombat',stars:3,hp:HP_BASE,soon:1,sk:[
-    {id:'spear',n:'Spear',kind:'ataque',tags:['fisica','magica'],tg:'enemy',maxT:1,dmg:100,stun:1,cd:3,
-      d:'Causa 100 de dano e o alvo fica 1 turno sem agir. Depois de usar, fica 3 turnos sem poder ser usado de novo.'},
+    {id:'spear',n:'Spear',kind:'ataque',tags:['fisica','magica'],tg:'enemy',maxT:1,dmg:100,stun:1,cd:2,
+      d:'Causa 100 de dano e o alvo fica 1 turno sem agir. Depois de usar, fica 2 turnos sem poder ser usado de novo.'},
     {id:'firebreath',n:'Fire Breath',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:100,dot:{dmg:100,turns:1},cd:3,
       d:'Causa 100 de dano na hora e mais 100 na próxima vez do Scorpion. Depois de usar, fica 3 turnos sem poder ser usado de novo.'},
-    {id:'hellpunch',n:'Hellfire Punch',short:'Hellfire',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:200,pierce:1,charges:3,
-      d:'Causa 200 de dano, sem poder ser bloqueado por counter.'},
-    {id:'flameaura',n:'Flame Aura',short:'Aura',kind:'tecnica',tags:['magica'],tg:'self',buff:{turns:5,cdAfter:8,aura:{dmg:100,stun:1}},
-      d:'Fica armada por até 5 turnos. Na primeira vez que o Scorpion levar dano de um ataque inimigo, quem atacou leva 100 e fica 1 turno sem agir, e a aura acaba. Quando acaba, fica 8 turnos sem poder ser usada de novo.'}
+    {id:'hellpunch',n:'Hellfire Punch',short:'Hellfire',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:250,pierce:1,charges:3,
+      d:'Causa 250 de dano, sem poder ser bloqueado por counter.'},
+    {id:'flameaura',n:'Flame Aura',short:'Aura',kind:'tecnica',tags:['magica'],tg:'self',buff:{turns:5,cdAfter:5,aura:{dmg:100,stun:1}},
+      d:'Fica armada por até 5 turnos. Na primeira vez que o Scorpion levar dano de um ataque inimigo, quem atacou leva 100 e fica 1 turno sem agir, e a aura acaba. Quando acaba, fica 5 turnos sem poder ser usada de novo.'}
   ]},
-  {i:'shrek',grp:'shrek',n:'Shrek',u:'Shrek',stars:3,hp:HP_BASE,soon:1,sk:[
+  {i:'shrek',grp:'shrek',n:'Shrek',u:'Shrek',stars:3,hp:HP_BASE,sk:[
     {id:'investida',n:'Investida',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:120,
       d:'Causa 120 de dano.'},
     {id:'contraagarrao',n:'Contra-agarrão',kind:'counter',tags:[],tg:'self',counter:1,cmode:'thorns',cdmg:120,charges:1,
@@ -839,14 +939,14 @@ const CHARS=[
       d:'Causa 50 de dano agora e mais 100 no começo da próxima vez do Itadori, sem gastar ação. Se for bloqueado, o segundo golpe não acontece. Não dá pra usar com o Sukuna ativo.'},
     {id:'blackflash',n:'Black Flash',kind:'tecnica',tags:['magica'],tg:'self',charges:4,boostEcho:250,noWith:'sukuna',
       d:'Usada no mesmo turno, depois do Punho Divergente: o segundo golpe dele passa de 100 pra 250. Não dá pra usar com o Sukuna ativo.'},
-    {id:'sukuna',n:'Sukuna',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,cdAfter:10},
-      d:'Por 5 turnos, libera o Desmontar e o Fender (e bloqueia o Punho Divergente e o Black Flash). Quando acaba, fica 10 turnos sem poder ser usada de novo.'},
+    {id:'sukuna',n:'Sukuna',kind:'tecnica',tags:[],tg:'self',buff:{turns:5,dmgMult:2,cdAfter:6},
+      d:'Por 5 turnos, todo dano que o Itadori causa dobra, e libera o Desmontar e o Fender (e bloqueia o Punho Divergente e o Black Flash). Quando acaba, fica 6 turnos sem poder ser usada de novo.'},
     {id:'desmontar',n:'Desmontar',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:100,req:'sukuna',
       d:'Causa 100 de dano. Precisa do Sukuna ativo.'},
     {id:'fender',n:'Fender',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:300,dmgByHp:[[1500,300],[1000,200],[0,100]],req:'sukuna',
       d:'O dano depende da vida do alvo: mais de 1500, causa 300; de 1001 a 1500, causa 200; 1000 ou menos, causa 100. Precisa do Sukuna ativo.'}
   ]},
-  {i:'rengoku',n:'Kyojuro Rengoku',u:'Demon Slayer',stars:5,hp:HP_BASE,soon:1,sk:[
+  {i:'rengoku',n:'Kyojuro Rengoku',u:'Demon Slayer',stars:5,hp:HP_BASE,sk:[
     {id:'respiracao',n:'Respiração das Chamas, Foco Total',short:'Respiração',kind:'tecnica',tags:[],tg:'self',buff:{turns:8,cdAfter:16,flat:100},
       d:'Por 8 turnos, cada ataque do Rengoku causa 100 de dano a mais em cada alvo (o counter dele também). Quando acaba, fica 16 turnos sem poder ser usada de novo.'},
     {id:'shiranui',n:'Shiranui',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
@@ -872,7 +972,7 @@ const CHARS=[
     {id:'takameru',n:'Takameru',kind:'tecnica',tags:[],tg:'self',charges:1,revive:{hp:500,then:'dempsey'},
       d:'Fica armada até o Ippo cair. Quando ele cai, volta com 500 de vida e o Dempsey Roll ativo por 5 turnos.'}
   ]},
-  {i:'ohma',n:'Tokita Ohma',u:'Kengan Ashura',stars:5,hp:HP_BASE,soon:1,flatReduce:50,sk:[
+  {i:'ohma',n:'Tokita Ohma',u:'Kengan Ashura',stars:5,hp:HP_BASE,flatReduce:50,sk:[
     {id:'niko',n:'Estilo Niko',kind:'tecnica',tags:[],tg:'self',passive:1,
       d:'Passiva, sempre ligada: Ohma leva 50 a menos de todo dano que vem de inimigo.'},
     {id:'avancado',n:'Avançado',kind:'tecnica',tags:[],tg:'self',buff:{turns:3,dmgMult:2},fatal2nd:1,
@@ -886,37 +986,37 @@ const CHARS=[
     {id:'adamantina',n:'Kata Adamantina',short:'Adamantina',kind:'counter',tags:[],tg:'self',counter:1,cmode:'revenge',cmul:2,charges:2,fatalWith:'avancado',
       d:'Quando Ohma é atacado, leva o dano e devolve o dobro a quem atacou. Se usar com o Avançado ativo, ele cai logo depois.'}
   ]},
-  {i:'remy',n:'Remy',u:'Ratatouille',stars:1,hp:HP_BASE,soon:1,contagion:{dmg:50,turns:3},sk:[
-    {id:'colher',n:'Colher de Pau',short:'Colher',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:50,
-      d:'Causa 50 de dano.'},
+  {i:'remy',n:'Remy',u:'Ratatouille',stars:1,hp:HP_BASE,contagion:{dmg:100,turns:3},sk:[
+    {id:'colher',n:'Colher de Pau',short:'Colher',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
+      d:'Causa 100 de dano.'},
     {id:'cabelo',n:'Controle pelo Cabelo',short:'Cabelo',kind:'tecnica',tags:['magica'],tg:'enemy',maxT:1,ctrl:1,ctrlTurns:3,untilHit:1,cd:10,
       d:'Controla o inimigo: em cada vez dele, Remy escolhe 1 ataque e em quem do próprio time dele vai acertar. Acaba quando ele levar qualquer dano, ou depois de 3 vezes. Depois de usar, fica 10 turnos sem poder ser usado de novo.'},
     {id:'leptospirose',n:'Leptospirose',kind:'tecnica',tags:[],tg:'self',passive:1,
-      d:'Passiva, sempre ligada: todo inimigo que atacar o Remy fica infectado e perde 50 de vida no começo das próximas 3 vezes dele. Atacar de novo recomeça a contagem.'},
-    {id:'linguine',n:'Controle do Linguine',short:'Linguine',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:150,cd:10,
-      d:'Causa 150 de dano. Depois de usar, fica 10 turnos sem poder ser usado de novo.'}
+      d:'Passiva, sempre ligada: todo inimigo que atacar o Remy fica infectado e perde 100 de vida no começo das próximas 3 vezes dele. Atacar de novo recomeça a contagem.'},
+    {id:'linguine',n:'Controle do Linguine',short:'Linguine',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:150,cd:5,
+      d:'Causa 150 de dano. Depois de usar, fica 5 turnos sem poder ser usado de novo.'}
   ]},
-  {i:'ayrton',n:'Ayrton',u:'Amigos',stars:1,hp:HP_BASE,soon:1,sk:[
+  {i:'ayrton',n:'Ayrton',u:'Amigos',stars:1,hp:HP_BASE,sk:[
     {id:'santoamaro',n:'Vendedor de Santo Amaro',short:'Santo Amaro',kind:'tecnica',tags:[],tg:'self',buff:{turns:3,cdAfter:10,untarget:1},
       d:'Por 3 turnos, ninguém pode escolher o Ayrton como alvo de ataque, e ataques em todos não pegam nele. Técnicas ainda pegam. Quando acaba, fica 10 turnos sem poder ser usado de novo.'},
     {id:'pelicula',n:'Troca de Película',short:'Película',kind:'tecnica',tags:['magica'],tg:'any',minT:2,maxT:2,steal:250,charges:2,
       d:'Escolha 1 inimigo e 1 aliado (pode ser o próprio Ayrton): tira 250 de vida do inimigo e passa pro aliado, sem passar da vida máxima.'},
-    {id:'camera',n:'Câmera Analógica',short:'Câmera',kind:'ataque',tags:['efeito'],tg:'enemy',maxT:1,stun:1,cd:10,
-      d:'O alvo fica 1 turno sem agir. Depois de usar, fica 10 turnos sem poder ser usada de novo.'},
-    {id:'lapada',n:'Lapada',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:50,
-      d:'Causa 50 de dano.'}
+    {id:'camera',n:'Câmera Analógica',short:'Câmera',kind:'ataque',tags:['efeito'],tg:'enemy',maxT:1,stun:1,cd:6,
+      d:'O alvo fica 1 turno sem agir. Depois de usar, fica 6 turnos sem poder ser usada de novo.'},
+    {id:'lapada',n:'Lapada',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
+      d:'Causa 100 de dano.'}
   ]},
   {i:'tia',n:'Tia',u:'Gash Bell',stars:2,hp:HP_BASE,soon:1,sk:[
     {id:'saisu',n:'Saisu',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:50,
       d:'Causa 50 de dano.'},
     {id:'maseshirudo',n:'Ma Seshirudo',kind:'counter',tags:['magica'],tg:'self',counter:1,cmode:'block',cd:10,
       d:'Quando Tia é atacada, o escudo bloqueia o dano e os efeitos desse ataque. Depois de usar, fica 10 turnos sem poder ser usado de novo.'},
-    {id:'chajiru',n:'Chajiru Seshirudon',short:'Chajiru',kind:'counter',tags:['suporte','magica'],tg:'self',counter:1,cmode:'block',guard:1,cd:10,
-      d:'Quando Tia ou um aliado é atacado, o escudo da deusa bloqueia o dano e os efeitos desse ataque. Depois de usar, fica 10 turnos sem poder ser usado de novo.'},
+    {id:'chajiru',n:'Chajiru Seshirudon',short:'Chajiru',kind:'counter',tags:['suporte','magica'],tg:'self',counter:1,cmode:'block',guard:1,charges:1,
+      d:'Quando Tia ou um aliado é atacado, o escudo da deusa bloqueia o dano e os efeitos desse ataque. 1 uso por partida.'},
     {id:'gigano',n:'Gigano Saisu',short:'Gigano',kind:'ataque',tags:['magica'],tg:'enemy',maxT:1,dmg:150,cd:5,
       d:'Causa 150 de dano. Depois de usar, fica 5 turnos sem poder ser usado de novo.'},
-    {id:'saifojio',n:'Saifojio',kind:'tecnica',tags:['suporte','magica'],tg:'team',maxT:1,heal:300,charges:2,cd:15,
-      d:'Cura 300 de vida em 1 aliado (pode ser a própria Tia), sem passar da vida máxima. Depois de usar, fica 15 turnos sem poder ser usada de novo.'}
+    {id:'saifojio',n:'Saifojio',kind:'tecnica',tags:['suporte','magica'],tg:'team',maxT:1,heal:200,charges:2,cd:15,
+      d:'Cura 200 de vida em 1 aliado (pode ser a própria Tia), sem passar da vida máxima. Depois de usar, fica 15 turnos sem poder ser usada de novo.'}
   ]},
   {i:'joao',n:'João',u:'Amigos',stars:4,hp:HP_BASE,soon:1,sk:[
     {id:'corsa',n:'Invocação do Corsa',short:'Corsa',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
@@ -973,7 +1073,7 @@ function bonusOf(ch){return ch.fx.find(f=>f.k==='bonus')}
 function isBonusAtk(B,s,c,sk,used){if(!used||sk.kind!=='ataque')return false;const ch=B.sides[s].chars[c];if(!bonusOf(ch))return false;const u=used[c];return !!((u&&u.atk&&!u.bonus)||(!u&&Object.keys(used).length>=2))}
 function isJailed(ch){return !ch.dead&&ch.fx.some(f=>f.k==='jail')}
 function canAct(ch){return !ch.dead&&!isStunned(ch)}
-function snapshot(B){return {cur:B.cur,round:B.round,sides:B.sides.map(sd=>({out:sd.out,chars:sd.chars.map(ch=>({...(ch.tf?{id:ch.id}:{}),hp:ch.hp,max:ch.max,dead:ch.dead,fx:ch.fx.map(f=>({k:f.k,id:f.id||'',name:f.short||f.name||'',left:f.left||0,pending:f.pending||0}))}))}))}}
+function snapshot(B){return {cur:B.cur,round:B.round,sides:B.sides.map(sd=>({out:sd.out,chars:sd.chars.map(ch=>({...(ch.tf?{id:ch.id}:{}),hp:ch.hp,max:ch.max,dead:ch.dead,fx:ch.fx.map(f=>({k:f.k,id:f.id||'',name:f.short||f.name||'',left:f.left||0,pending:f.pending||0,...(f.k==='taunt'&&f.by?{by:f.by.slice()}:{})}))}))}))}}
 function cloneB(B){return JSON.parse(JSON.stringify(B))}
 function newBattle(teams,seed,cpu){
   const B={seed:String(seed),n:teams.length,cur:0,round:1,tc:teams.map(()=>0),ri:teams.map(()=>0),cpu:teams.map((_,i)=>!!(cpu&&cpu[i])),phase:'play',winner:null,
@@ -1837,7 +1937,8 @@ const SPRITES={
   goku:{src:'img/sprites/023-goku.png',W:627,H:803,ref:86,a:{idle:[[0,0,50,86,24.5,86],[52,0,50,86,23.9,86],[104,0,50,86,23.1,86],[156,0,47,86,22.9,86]],low:[[0,88,63,72,25.5,72],[65,88,68,72,25.4,72],[135,88,68,72,26.5,72]],guard:[[0,162,61,80,30.8,80],[63,162,64,80,31,80]],stun:[[0,244,74,80,26.4,80],[76,244,74,80,25.2,80],[152,244,74,80,27.8,80]],attack:[[0,326,78,69,31.5,69],[80,326,89,69,39.4,69],[171,326,107,69,39.3,69],[280,326,93,68,38.1,69],[375,326,119,68,33.3,69],[496,326,129,68,32.6,69]],jutsu:[[0,397,61,69,31.2,70],[63,397,68,70,33.9,70],[133,397,68,70,35.2,70],[203,397,78,70,34.6,70],[283,397,79,70,35.9,70],[364,397,81,70,36.6,70]],hurt:[[0,469,63,73,31.3,73],[65,469,65,71,28.4,71],[132,469,75,73,29.5,73],[209,469,74,73,28.8,73]],faint:[[0,544,61,66,32.5,66],[63,544,76,49,42.1,50],[141,544,102,37,56.6,38],[245,544,100,34,55.2,35]],victory:[[0,612,105,78,50.1,78],[107,612,88,78,51.5,78],[197,612,57,87,27.8,87],[256,612,51,90,25.3,90],[309,612,57,90,29.3,90]],genki:[[0,704,51,81,23.7,81],[53,704,61,88,31.5,88],[116,704,52,94,25.8,94],[170,704,56,97,27.7,97]]},
     fx:{src:'img/sprites/023-goku-fx.png',W:531,H:370,a:{kamehameha:[[0,0,29,60],[31,0,40,62],[73,0,50,63],[125,0,120,69],[247,0,165,69]],kaioken:[[0,71,53,67],[55,71,77,69],[134,71,89,69],[225,71,94,69],[321,71,109,69]],kaiokenatk:[[0,142,147,60],[149,142,132,58],[283,142,154,63]],teleporteg:[[0,207,72,63],[74,207,71,63],[147,207,58,63]],genki:[[0,272,30,83],[32,272,43,96],[77,272,60,96],[139,272,76,96],[217,272,115,96],[334,272,195,96]]}}},
   geralt:{src:'img/sprites/024-geralt.png',W:742,H:714,ref:88,a:{idle:[[0,0,57,88,30.6,88],[59,0,57,88,30.1,88],[118,0,58,88,31,88],[178,0,58,88,31,88]],low:[[0,90,57,69,25.9,69],[59,90,62,69,26.8,69],[123,90,66,69,28.6,69]],guard:[[0,161,74,78,29.9,78],[76,161,70,78,28.9,78],[148,161,66,78,29.1,78]],stun:[[0,241,66,86,27.9,86],[68,241,66,86,26.6,86],[136,241,72,86,29.8,86]],attack:[[0,329,96,66,45.6,66],[98,329,113,66,28.3,66],[213,329,116,66,29,66],[331,329,109,66,27.6,66],[442,329,105,65,26.6,65],[549,329,100,68,27.7,68],[651,329,89,68,25.2,68]],jutsu:[[0,399,100,76,36.5,76],[102,399,120,76,52.6,76],[224,399,110,76,44.2,76],[336,399,77,73,28.9,73],[415,399,83,73,30.3,73],[500,399,95,78,31.3,78]],hurt:[[0,479,65,66,30.2,66],[67,479,62,65,32.1,65],[131,479,65,65,34.6,65],[198,479,65,60,32.2,60]],faint:[[0,547,55,65,26.9,65],[57,547,75,46,41.2,48],[134,547,111,40,59.6,42],[247,547,117,41,62.4,42]],victory:[[0,614,100,73,50.8,73],[102,614,79,73,51.8,73],[183,614,56,77,27.5,77],[241,614,53,98,28.3,98],[296,614,99,79,48.7,79]]},
-    fx:{src:'img/sprites/024-geralt-fx.png',W:552,H:442,a:{espadas:[[0,0,62,57],[64,0,72,59],[138,0,164,63]],igni:[[0,65,112,57],[114,65,134,60],[250,65,137,63],[389,65,161,63]],aard:[[0,130,50,68],[52,130,49,66],[103,130,67,70],[172,130,100,70]],yrden:[[0,202,101,67],[103,202,116,70],[221,202,127,70],[350,202,144,70]],axii:[[0,274,32,74],[34,274,32,81],[68,274,76,82],[146,274,88,82]],polua:[[0,358,70,82],[72,358,92,82],[166,358,109,82],[277,358,119,82]]}}},
+    fx:{src:'img/sprites/024-geralt-fx.png',W:552,H:442,a:{espadas:[[0,0,62,57],[64,0,72,59],[138,0,164,63]],igni:[[0,65,112,57],[114,65,134,60],[250,65,137,63],[389,65,161,63]],aard:[[0,130,50,68],[52,130,49,66],[103,130,67,70],[172,130,100,70]],yrden:[[0,202,101,67],[103,202,116,70],[221,202,127,70],[350,202,144,70]],axii:[[0,274,32,74],[34,274,32,81],[68,274,76,82],[146,274,88,82]],polua:[[0,358,70,82],[72,358,92,82],[166,358,109,82],[277,358,119,82]]}}}
+,
   natsu:{src:'img/sprites/025-natsu.png',W:701,H:732,ref:80,a:{idle:[[0,0,56,80,32.8,80],[58,0,58,80,31.1,80],[118,0,51,80,29.2,80],[171,0,53,80,29.9,80]],low:[[0,82,57,66,28.8,66],[59,82,54,59,25.4,59],[115,82,73,56,31.9,56]],guard:[[0,150,57,66,32.6,66],[59,150,53,66,28.8,66]],stun:[[0,218,61,66,25.6,66],[63,218,65,66,25.9,66],[130,218,61,66,22.8,66]],attack:[[0,286,52,64,22,64],[54,286,52,65,24,65],[108,286,67,64,29.7,64],[177,286,63,63,21.4,64],[242,286,65,63,22.9,63],[309,286,68,66,29.8,66]],jutsu:[[0,354,58,80,29.3,83],[60,354,69,81,39.1,85],[131,354,95,91,47.1,94],[228,354,103,94,53.2,97],[333,354,113,114,56.5,117],[448,354,127,131,65.4,132],[577,354,122,136,62.2,136]],hurt:[[0,492,55,65,33,65],[57,492,55,64,31.6,64],[114,492,63,57,38.9,57]],faint:[[0,559,49,66,25.7,66],[51,559,60,50,30.3,50],[113,559,78,27,40.4,27],[193,559,84,21,41.2,21]],victory:[[0,627,50,84,27.3,86],[52,627,56,82,28.5,84],[110,627,56,85,29.9,87],[168,627,65,101,30.5,103],[235,627,68,101,35.4,102],[305,627,69,103,35.3,103]]},
     fx:{src:'img/sprites/025-natsu-fx.png',W:556,H:696,a:{dragonroar:[[0,0,37,78],[39,0,79,81],[120,0,88,87],[210,0,127,97]],dragonmode:[[0,99,93,89],[95,99,105,109],[202,99,127,130],[331,99,141,141]],lfroar:[[0,242,58,87],[60,242,72,101],[134,242,91,115],[227,242,124,127]],lblade:[[0,371,49,120],[51,371,68,121],[121,371,90,139]],dragonforce:[[0,512,120,157],[122,512,129,166],[253,512,147,173],[402,512,152,182]]}}},
   lucy:{src:'img/sprites/026-lucy.png',W:637,H:720,ref:77,a:{idle:[[0,0,43,77,25.8,77],[45,0,47,77,27.4,77],[94,0,47,77,27,77],[143,0,46,77,27.8,77]],low:[[0,79,48,64,21.5,64],[50,79,47,56,21.1,56],[99,79,66,55,21.2,55]],guard:[[0,145,83,67,27.8,67],[85,145,108,66,26.4,66]],stun:[[0,214,44,66,17.3,66],[46,214,46,66,18.9,66],[94,214,53,66,19.8,66]],attack:[[0,282,41,63,20.8,63],[43,282,44,63,24.6,63],[89,282,43,65,13.4,65],[134,282,69,59,32.3,59],[205,282,72,65,31.2,65],[279,282,74,65,18,65]],jutsu:[[0,349,49,84,29.1,89],[51,349,82,100,28.9,105],[135,349,69,98,31.7,103],[206,349,100,115,56,120],[308,349,101,126,54.3,130],[411,349,107,131,57.8,133],[520,349,115,133,59.5,133]],hurt:[[0,484,47,62,25.7,62],[49,484,52,63,33.3,63],[103,484,58,63,37.6,63]],faint:[[0,549,40,67,19.9,67],[42,549,50,46,27.3,46],[94,549,71,24,37,24],[167,549,77,24,38.1,24]],victory:[[0,618,44,81,26.7,82],[46,618,52,81,26.9,82],[100,618,50,89,27.9,90],[152,618,65,99,33.4,100],[219,618,75,100,31.4,100]]},
@@ -1847,7 +1948,28 @@ const SPRITES={
   shangtsung:{src:'img/sprites/027-shang-tsung.png',W:668,H:717,ref:76,a:{idle:[[0,0,51,76,25.1,76],[53,0,51,76,25.4,76],[106,0,51,76,26.3,76],[159,0,52,76,27,76]],low:[[0,78,55,62,25.2,62],[57,78,55,55,24.3,55],[114,78,69,54,20,54]],guard:[[0,142,65,63,29.9,63],[67,142,64,63,28.2,63]],stun:[[0,207,56,65,26.2,65],[58,207,53,65,25.6,65],[113,207,49,65,19.3,65]],attack:[[0,274,48,65,25.7,65],[50,274,62,65,25.4,65],[114,274,63,65,24.7,65],[179,274,64,65,24.8,65],[245,274,66,65,23.1,65],[313,274,66,65,24.4,65]],jutsu:[[0,341,61,91,30.9,96],[63,341,79,91,41.3,96],[144,341,97,102,40.4,107],[243,341,84,117,45,122],[329,341,90,131,51.8,136],[421,341,114,134,58.5,139],[537,341,129,149,64.3,149]],hurt:[[0,492,50,61,28.3,61],[52,492,52,60,30.8,60],[106,492,55,60,33.5,60]],faint:[[0,555,49,64,25.6,64],[51,555,54,52,30.3,52],[107,555,83,29,41.7,29],[192,555,84,28,41.4,28]],victory:[[0,621,62,82,31.2,82],[64,621,55,82,28.5,82],[121,621,67,90,34.9,90],[190,621,71,94,29.1,94],[263,621,72,94,27.3,94]]},
     fx:{src:'img/sprites/027-shang-tsung-fx.png',W:639,H:554,a:{skulls:[[0,0,64,75],[66,0,102,85],[170,0,121,96],[293,0,161,110],[456,0,181,127]],soulsteal2:[[0,129,69,107],[71,129,104,105],[177,129,163,122],[342,129,207,136]],erupcao:[[0,267,100,80],[102,267,106,113],[210,267,116,125],[328,267,137,135],[467,267,165,138]],captura:[[0,407,117,96],[119,407,126,120],[247,407,148,129],[397,407,169,145]]}}},
   scorpion:{src:'img/sprites/028-scorpion.png',W:673,H:724,ref:78,a:{idle:[[0,0,54,78,28,78],[56,0,54,78,28.8,78],[112,0,53,78,28,78],[167,0,54,78,28.6,78]],low:[[0,80,55,58,26.4,58],[57,80,49,55,22.3,55],[108,80,76,55,24.7,55]],guard:[[0,140,55,65,25.5,65],[57,140,54,65,25.1,65]],stun:[[0,207,56,64,21.8,64],[58,207,52,64,20.9,64],[112,207,50,64,19.4,64]],attack:[[0,273,57,64,25.2,64],[59,273,60,64,25,64],[121,273,63,64,24.4,64],[186,273,56,64,23.2,64],[244,273,54,64,22.7,64],[300,273,63,64,20.7,64]],jutsu:[[0,339,65,89,34.1,95],[67,339,81,89,41.9,95],[150,339,87,101,46.7,107],[239,339,94,101,49.9,107],[335,339,100,111,48.6,117],[437,339,105,129,54.2,134],[544,339,127,150,65.5,150]],hurt:[[0,491,51,64,28.3,64],[53,491,52,64,29.6,64],[107,491,52,63,29.5,63]],faint:[[0,557,49,66,25.7,66],[51,557,53,50,30.2,50],[106,557,86,29,42.4,29],[194,557,86,26,42,26]],victory:[[0,625,54,78,26.7,81],[56,625,68,77,22.8,80],[126,625,62,92,25.6,95],[190,625,69,95,27.2,97],[261,625,89,97,39.7,97]]},
-    fx:{src:'img/sprites/028-scorpion-fx.png',W:676,H:529,a:{spear:[[0,0,77,78],[79,0,115,80],[196,0,159,86],[357,0,177,85],[536,0,134,114]],firebreath:[[0,116,63,79],[65,116,93,86],[160,116,134,94],[296,116,165,105],[463,116,211,122]],hellpunch:[[0,240,108,104],[110,240,142,107],[254,240,165,109],[421,240,201,133]],flameaura:[[0,375,104,119],[106,375,113,129],[221,375,125,142],[348,375,134,150],[484,375,152,152]]}}}
+    fx:{src:'img/sprites/028-scorpion-fx.png',W:676,H:529,a:{spear:[[0,0,77,78],[79,0,115,80],[196,0,159,86],[357,0,177,85],[536,0,134,114]],firebreath:[[0,116,63,79],[65,116,93,86],[160,116,134,94],[296,116,165,105],[463,116,211,122]],hellpunch:[[0,240,108,104],[110,240,142,107],[254,240,165,109],[421,240,201,133]],flameaura:[[0,375,104,119],[106,375,113,129],[221,375,125,142],[348,375,134,150],[484,375,152,152]]}}},
+  shrek:{src:'img/sprites/029-shrek.png',W:756,H:882,ref:86,a:{idle:[[0,0,87,100,47,100],[89,0,86,100,46.5,100],[177,0,86,100,46.5,100],[265,0,102,100,47.2,100]],low:[[0,102,93,91,42.2,91],[95,102,88,84,44.9,84],[185,102,108,83,40.7,83]],guard:[[0,195,92,96,43.9,96],[94,195,96,95,45.2,95]],stun:[[0,293,105,98,50.2,98],[107,293,105,98,51.3,98],[214,293,84,98,45.9,98]],attack:[[0,393,74,86,34,86],[76,393,80,81,22.2,82],[158,393,88,80,13.2,83],[248,393,119,77,34.3,80],[369,393,131,77,34.7,79],[502,393,115,74,36.5,76]],jutsu:[[0,481,91,89,45.2,89],[93,481,92,89,42.8,89],[187,481,99,95,48.3,95],[288,481,111,96,57.6,96],[401,481,109,100,57,100],[512,481,118,102,57.2,102],[632,481,122,102,59.3,102]],hurt:[[0,585,91,97,49.5,97],[93,585,108,100,50.5,100],[203,585,110,98,59.9,98],[315,585,103,85,57.6,85]],faint:[[0,687,84,91,43,91],[86,687,120,73,62.8,74],[208,687,134,64,65.7,66],[344,687,144,47,72,49]],victory:[[0,780,92,98,47.3,98],[94,780,98,98,49.5,98],[194,780,118,100,63.7,100],[314,780,128,100,67.9,100],[444,780,138,100,72.2,100]]},
+    fx:{src:'img/sprites/029-shrek-fx.png',W:359,H:586,a:{investida:[[0,0,25,37],[27,0,41,48],[70,0,61,50],[133,0,79,52],[214,0,107,55]],contraagarrao:[[0,57,29,38],[31,57,44,48],[77,57,60,57],[139,57,79,57],[220,57,137,72]],irritado:[[0,131,49,44],[51,131,58,57],[111,131,64,72],[177,131,73,77],[252,131,91,77]],urro:[[0,210,21,42],[23,210,32,55],[57,210,40,67],[99,210,51,78],[152,210,62,83]],acordo:[[0,295,37,43],[39,295,57,50],[98,295,68,59],[168,295,85,85],[255,295,99,95]],beijar:[[0,392,24,38],[26,392,36,52],[64,392,52,74],[118,392,64,85]],volta:[[0,479,35,31],[37,479,47,41],[86,479,55,56],[143,479,73,75],[218,479,95,105]]}}},
+  itadori:{src:'img/sprites/030-itadori.png',W:674,H:978,ref:115,a:{idle:[[0,0,62,115,31.3,115],[64,0,63,115,32.5,115],[129,0,63,115,32,115],[194,0,74,115,33,115]],low:[[0,117,72,105,30.7,105],[74,117,81,90,29.9,91],[157,117,96,80,33.9,81]],guard:[[0,224,81,114,42.4,115],[83,224,81,109,40.3,109]],stun:[[0,340,82,108,41.1,108],[84,340,69,106,34.3,106],[155,340,74,108,38.1,108]],attack:[[0,450,66,101,33.4,102],[68,450,82,102,42.8,102],[152,450,105,101,43.2,102],[259,450,106,101,45.1,102],[367,450,127,96,35.3,97],[496,450,79,98,41.1,99]],jutsu:[[0,554,76,105,38.9,105],[78,554,76,100,39.3,100],[156,554,92,95,47,95],[250,554,98,111,51.2,111],[350,554,98,112,49.1,112],[450,554,105,112,56.1,112],[557,554,115,112,57.1,112]],hurt:[[0,668,84,106,28.6,106],[86,668,106,101,43.4,101],[194,668,102,78,78.7,103],[298,668,101,71,69,82]],faint:[[0,776,82,91,42.2,91],[84,776,89,62,46.1,62],[175,776,115,51,60,52],[292,776,134,60,71.2,61]],victory:[[0,869,58,107,30.4,107],[60,869,73,104,37.4,104],[135,869,73,105,37.6,105],[210,869,91,107,53.4,107],[303,869,78,107,39.5,107]]},
+    fx:{src:'img/sprites/030-itadori-fx.png',W:363,H:385,a:{punho:[[0,0,21,35],[23,0,41,45],[66,0,65,63],[133,0,83,80],[218,0,107,90]],blackflash:[[0,92,39,42],[41,92,58,49],[101,92,59,70],[162,92,102,90]],desmontar:[[0,184,51,47],[53,184,61,56],[116,184,80,80],[198,184,88,90]],fender:[[0,276,41,36],[43,276,55,58],[100,276,70,85],[172,276,74,87],[248,276,113,107]]}},
+    forms:{
+    sukuna:{src:'img/sprites/030-itadori-sukuna.png',W:1128,H:1178,ref:171,a:{idle:[[0,0,89,171,47.2,171],[91,0,89,171,46.7,171],[182,0,88,171,46.4,171],[272,0,94,169,44.7,169]],trans:[[0,173,126,162,65.4,162],[128,173,147,158,77.5,158],[277,173,167,164,84.9,164],[446,173,143,165,70.4,165],[591,173,174,165,87.8,165]],attack:[[0,340,140,149,64.6,149],[142,340,141,152,62.6,152],[285,340,178,158,65.4,158],[465,340,205,158,77.4,158],[672,340,228,148,95.1,148],[902,340,224,156,106.7,156]],guard:[[0,500,131,154,71.5,154],[133,500,119,149,61.9,149]],hurt:[[0,656,111,169,59.3,169],[113,656,110,147,44.2,147],[225,656,121,126,47.6,126],[348,656,138,117,73.8,117]],low:[[0,827,106,164,47.3,164],[108,827,138,149,50.7,149],[248,827,181,139,78.3,139]],stun:[[0,993,114,183,64.9,183],[116,993,118,177,74,177],[236,993,102,178,58.5,178]]},
+    fx:{src:'img/sprites/030-itadori-sukuna-fx.png',W:564,H:186,a:{aura:[[0,0,150,174],[152,0,182,184],[336,0,226,184]]}}}}},
+  rengoku:{src:'img/sprites/031-rengoku.png',W:1014,H:855,ref:95,a:{idle:[[0,0,75,95,43.9,95],[77,0,76,95,44.2,95],[155,0,75,95,44,95],[232,0,77,95,45.1,95]],low:[[0,97,88,90,45.7,90],[90,97,90,89,45.2,89],[182,97,99,72,47.3,72]],guard:[[0,189,124,95,60.3,95],[126,189,106,95,52.5,95]],stun:[[0,286,80,95,45.6,95],[82,286,81,84,48.4,84],[165,286,71,95,43.3,95]],attack:[[0,383,97,92,60.1,92],[99,383,101,94,63.1,94],[202,383,100,93,62.6,93],[304,383,130,93,57.2,93],[436,383,181,94,71.4,94],[619,383,194,89,106.4,89],[815,383,197,90,118.6,90]],jutsu:[[0,479,90,90,46.8,90],[92,479,92,89,52.9,89],[186,479,92,89,51.7,89],[280,479,99,92,51.4,92],[381,479,100,95,49.2,95],[483,479,105,95,53.5,95],[590,479,104,95,51.7,95]],hurt:[[0,576,95,93,49.2,93],[97,576,91,88,55.6,90],[190,576,93,68,41.9,70],[285,576,99,71,46.8,73]],faint:[[0,671,81,85,43.6,85],[83,671,99,73,52.8,73],[184,671,126,47,65.9,47],[312,671,130,36,68.4,36]],victory:[[0,758,85,95,48.3,95],[87,758,87,95,50,95],[176,758,75,95,40.4,95],[253,758,99,95,60.1,95],[354,758,126,95,72.7,95]]},
+    fx:{src:'img/sprites/031-rengoku-fx.png',W:968,H:543,a:{respiracao:[[0,0,40,40],[42,0,47,53],[91,0,61,71],[154,0,71,84],[227,0,92,91]],shiranui:[[0,93,42,33],[44,93,71,49],[117,93,95,67],[214,93,116,90]],shinokata:[[0,185,42,46],[44,185,61,58],[107,185,76,75],[185,185,105,94]],enko:[[0,281,58,39],[60,281,81,66],[143,281,96,93],[241,281,125,128]],kunokata:[[0,411,108,49],[110,411,147,66],[259,411,186,101],[447,411,232,118],[681,411,285,130]]}}},
+  ippo:{src:'img/sprites/032-ippo.png',W:832,H:922,ref:102,a:{idle:[[0,0,63,102,33,102],[65,0,66,102,35.5,102],[133,0,64,102,33.1,102],[199,0,83,102,32.5,102]],low:[[0,104,71,91,30.5,92],[73,104,88,90,30.8,90],[163,104,74,78,31.3,78]],guard:[[0,197,81,101,39.6,102],[83,197,84,98,38.8,98]],stun:[[0,300,68,100,29.7,100],[70,300,68,100,29,100],[140,300,69,96,30.3,96]],attack:[[0,402,78,100,37.8,100],[80,402,84,100,41.3,100],[166,402,100,100,46.3,100],[268,402,135,100,45.6,100],[405,402,147,100,45.3,100],[554,402,114,99,43.5,99],[670,402,160,99,63.7,99]],jutsu:[[0,504,63,102,31.8,102],[65,504,71,80,29.8,80],[138,504,82,81,36.8,81],[222,504,109,88,57.3,88],[333,504,99,99,45.7,99],[434,504,114,105,54.4,105],[550,504,104,105,50.4,105]],hurt:[[0,611,82,101,38.1,101],[84,611,81,100,47.5,100],[167,611,76,92,29.3,93],[245,611,93,79,41.4,79]],faint:[[0,714,65,100,33.3,100],[67,714,84,74,44.4,74],[153,714,101,55,54.2,55],[256,714,120,41,66.8,41]],victory:[[0,816,61,104,30.6,104],[63,816,63,104,33.8,104],[128,816,59,104,30.2,104],[189,816,83,104,45,104],[274,816,124,104,64,104]]},
+    fx:{src:'img/sprites/032-ippo-fx.png',W:500,H:387,a:{corkscrew:[[0,0,49,58],[51,0,78,75],[131,0,117,89],[250,0,154,93]],dempsey:[[0,95,87,69],[89,95,89,76],[180,95,93,87],[275,95,103,93],[380,95,118,93]],ganchos:[[0,190,62,54],[64,190,92,71],[158,190,101,78],[261,190,111,87],[374,190,121,95]],takameru:[[0,287,72,41],[74,287,84,67],[160,287,90,96],[252,287,97,98],[351,287,112,98]]}}},
+  ohma:{src:'img/sprites/033-ohma.png',W:842,H:886,ref:102,a:{idle:[[0,0,66,102,34,102],[68,0,65,102,33.2,102],[135,0,63,102,32,102],[200,0,72,102,30.5,102]],low:[[0,104,78,92,35,92],[80,104,78,86,34.7,86],[160,104,93,76,39.6,76]],guard:[[0,198,83,102,42.7,102],[85,198,86,99,43.9,99]],stun:[[0,302,71,100,30,100],[73,302,65,100,29.5,100],[140,302,68,94,26.8,94]],attack:[[0,404,81,91,39.6,91],[83,404,87,89,40.1,89],[172,404,93,90,41.6,90],[267,404,137,91,41.9,91],[406,404,145,91,39.9,91],[553,404,123,90,38.5,90],[678,404,162,89,66.4,89]],jutsu:[[0,497,70,97,35.8,97],[72,497,73,80,33.5,80],[147,497,90,96,41.2,96],[239,497,100,97,45.4,97],[341,497,106,97,50.6,97],[449,497,110,97,54.4,97]],hurt:[[0,596,85,96,44.1,96],[87,596,92,96,56.5,96],[181,596,78,87,42.8,87],[261,596,93,73,40.4,73]],faint:[[0,694,62,93,33.6,93],[64,694,84,73,45.4,73],[150,694,98,52,54.7,54],[250,694,123,41,68.7,42]],victory:[[0,789,61,95,31,95],[63,789,68,95,31.2,95],[133,789,65,95,31.4,95],[200,789,70,95,32.5,95],[272,789,127,95,64.7,95]]},
+    fx:{src:'img/sprites/033-ohma-fx.png',W:545,H:394,a:{avancado:[[0,0,76,59],[78,0,100,79],[180,0,115,81],[297,0,156,84]],kataredir:[[0,86,84,53],[86,86,99,69],[187,86,108,76],[297,86,125,78]],katachamas:[[0,166,68,42],[70,166,88,51],[160,166,104,61],[266,166,122,68],[390,166,148,75]],kataagua:[[0,243,71,47],[73,243,104,59],[179,243,110,72],[291,243,123,76],[416,243,127,78]],adamantina:[[0,323,91,48],[93,323,97,63],[192,323,103,69],[297,323,128,69]]}}},
+  remy:{src:'img/sprites/034-remy.png',W:1020,H:869,ref:150,a:{idle:[[0,0,66,100,33.4,101],[68,0,65,100,32.9,101],[135,0,65,101,34,101],[202,0,87,100,33.4,101]],low:[[0,103,87,83,30.5,83],[89,103,83,64,31,65],[174,103,94,55,32.3,55]],guard:[[0,188,77,100,33.1,100],[79,188,87,95,34.7,95]],stun:[[0,290,70,94,31.8,94],[72,290,70,94,31.2,94],[144,290,87,93,31.7,93]],attack:[[0,386,107,89,32.3,89],[109,386,122,89,43.8,89],[233,386,141,88,31.8,89],[376,386,151,88,32.4,89],[529,386,155,88,33,89],[686,386,153,88,36.8,89],[841,386,177,88,40.6,89]],jutsu:[[0,477,74,89,36.4,91],[76,477,75,89,34.5,91],[153,477,75,87,34.5,90],[230,477,83,93,38.7,95],[315,477,94,100,44.9,102],[411,477,95,103,46.6,104],[508,477,110,108,56.1,108]],hurt:[[0,587,91,102,41.8,102],[93,587,65,81,38.8,81],[160,587,83,79,30.6,80],[245,587,84,78,36.7,78]],faint:[[0,691,81,78,46.8,78],[83,691,85,57,44.6,59],[170,691,100,36,53.1,39],[272,691,104,35,53.7,38]],victory:[[0,771,63,89,31.7,89],[65,771,76,87,32.2,87],[143,771,76,91,31.5,91],[221,771,79,95,35,95],[302,771,134,96,66.8,96]]},
+    fx:{src:'img/sprites/034-remy-fx.png',W:529,H:363,a:{colher:[[0,0,55,47],[57,0,92,62],[151,0,117,74],[270,0,94,82]],cabelo:[[0,84,53,58],[55,84,87,65],[144,84,110,79],[256,84,122,84],[380,84,126,84]],leptospirose:[[0,170,38,53],[40,170,56,67],[98,170,87,87],[187,170,115,94]],linguine:[[0,266,69,77],[71,266,87,86],[160,266,100,92],[262,266,118,94],[382,266,145,95]]}}},
+  ayrton:{src:'img/sprites/035-ayrton.png',W:894,H:869,ref:98,a:{idle:[[0,0,80,98,34.3,98],[82,0,77,98,33,98],[161,0,78,98,32.9,98],[241,0,77,98,33.2,98]],low:[[0,100,88,88,30.4,88],[90,100,85,79,31.5,79],[177,100,94,80,31.8,80]],guard:[[0,190,83,98,33.9,98],[85,190,84,98,34.3,98]],stun:[[0,290,79,96,40.1,96],[81,290,76,94,40.5,94],[159,290,76,94,43.3,94]],attack:[[0,388,83,91,40.5,91],[85,388,93,91,40.5,91],[180,388,91,91,42.2,91],[273,388,117,91,42.6,91],[392,388,152,91,41.6,91],[546,388,168,91,44.4,91],[716,388,176,91,39.5,91]],jutsu:[[0,481,75,94,31.1,94],[77,481,76,91,31.5,91],[155,481,75,94,31.6,94],[232,481,80,95,33.8,95]],hurt:[[0,578,91,94,42,95],[93,578,90,95,43.1,95],[185,578,96,84,26,84],[283,578,82,79,37.9,79]],faint:[[0,675,64,95,33.4,95],[66,675,98,80,52.6,80],[166,675,104,51,55.9,51],[272,675,141,44,71.7,45]],victory:[[0,772,77,95,35.1,95],[79,772,73,95,38,95],[154,772,73,95,40.6,95],[229,772,79,95,42.1,95],[310,772,140,95,67.5,95]]},
+    fx:{src:'img/sprites/035-ayrton-fx.png',W:582,H:434,a:{santoamaro:[[0,0,65,67],[67,0,77,73],[146,0,87,84],[235,0,100,95],[337,0,112,98]],pelicula:[[0,100,100,56],[102,100,123,79],[227,100,99,88],[328,100,128,88],[458,100,122,88]],camera:[[0,190,45,79],[47,190,85,96],[134,190,115,111],[251,190,157,122]],lapada:[[0,314,74,64],[76,314,97,84],[175,314,105,101],[282,314,146,118]]}}},
+  tia:{src:'img/sprites/036-tia.png',W:870,H:810,ref:118,a:{idle:[[0,0,65,96,38.7,96],[67,0,63,96,37.3,96],[132,0,62,96,35.7,96],[196,0,60,96,33.1,96]],low:[[0,98,85,86,43.2,86],[87,98,75,73,34.8,73],[164,98,89,52,45.8,52]],guard:[[0,186,77,94,42,94],[79,186,75,96,44.8,96]],stun:[[0,284,75,89,43.8,89],[77,284,73,89,42.3,89],[152,284,72,89,41.8,89]],attack:[[0,375,75,87,39.1,87],[77,375,87,87,43.9,87],[166,375,91,87,46.6,87],[259,375,115,87,44.1,87],[376,375,139,87,48.6,87],[517,375,171,87,47.8,87],[690,375,178,87,88.8,87]],jutsu:[[0,464,73,81,42.5,81],[75,464,75,82,43,82],[152,464,70,89,37.9,89],[224,464,97,90,49.5,90]],hurt:[[0,556,95,90,55.2,90],[97,556,84,90,38.8,90],[183,556,81,72,41.3,72],[266,556,91,70,45.8,70]],faint:[[0,648,69,75,36.8,75],[71,648,78,65,40.2,65],[151,648,99,47,50.9,47],[252,648,119,42,65.6,42]],victory:[[0,725,68,83,39,83],[70,725,77,83,44.4,83],[149,725,78,83,45,83],[229,725,77,83,44.4,83],[308,725,122,83,63.5,83]]},
+    fx:{src:'img/sprites/036-tia-fx.png',W:773,H:422,a:{saisu:[[0,0,54,43],[56,0,92,50],[150,0,128,57],[280,0,162,70]],maseshirudo:[[0,72,70,70],[72,72,83,74],[157,72,105,76],[264,72,118,78]],chajiru:[[0,152,62,62],[64,152,81,72],[147,152,102,78],[251,152,124,85],[377,152,144,86]],gigano:[[0,240,70,34],[72,240,106,53],[180,240,124,66],[306,240,118,85],[426,240,171,95]],saifojio:[[0,337,86,80],[88,337,139,80],[229,337,156,83],[387,337,184,83],[573,337,198,83]]}}},
+  joao:{src:'img/sprites/037-joao.png',W:896,H:856,ref:98,a:{idle:[[0,0,53,98,27.1,98],[55,0,54,98,27.8,98],[111,0,54,98,27.5,98],[167,0,54,98,27.9,98]],low:[[0,100,83,85,30.7,85],[85,100,80,77,30.4,77],[167,100,80,73,32,73]],guard:[[0,187,80,97,36.9,97],[82,187,80,97,35.3,97]],stun:[[0,286,63,93,31.4,93],[65,286,63,92,33.4,92],[130,286,66,90,28,90]],attack:[[0,381,70,88,31.1,88],[72,381,99,88,33.2,88],[173,381,110,88,32.5,88],[285,381,132,88,34.1,88],[419,381,148,88,34.2,88],[569,381,143,88,35,88],[714,381,180,88,63.4,88]],jutsu:[[0,471,51,96,25.2,96],[53,471,62,93,26.6,93],[117,471,72,98,26.5,98],[191,471,122,94,57.5,94],[315,471,121,95,49.5,95],[438,471,113,97,51.7,97],[553,471,111,96,52.2,96]],hurt:[[0,571,74,93,41.6,93],[76,571,80,98,45.3,98],[158,571,74,88,29.7,88],[234,571,98,87,42.4,87]],faint:[[0,671,57,86,28,86],[59,671,84,71,43.7,71],[145,671,98,49,53.1,49],[245,671,113,40,61.1,40]],victory:[[0,759,146,93,60.7,93],[148,759,143,94,58.7,94],[293,759,144,95,56.9,95],[439,759,146,95,59.8,95]]},
+    fx:{src:'img/sprites/037-joao-fx.png',W:548,H:367,a:{corsa:[[0,0,64,42],[66,0,69,50],[137,0,109,57],[248,0,162,62],[412,0,123,70]],marcha:[[0,72,87,40],[89,72,117,53],[208,72,154,67],[364,72,182,74]],ti:[[0,148,89,66],[91,148,94,64],[187,148,99,63],[288,148,141,72]],piada:[[0,222,83,61],[85,222,93,64],[180,222,191,74]],imitacao:[[0,298,94,52],[96,298,110,58],[208,298,126,67]]}}}
 };
 const withIcon=(id,art,cls)=>iconUrl(id)?`<span class="ci${cls?' '+cls:''}">${art}<img src="${iconUrl(id)}" alt="" draggable="false" onerror="this.remove()"></span>`:art;
 const charArt=(id,color,face)=>withIcon(id,fighter(color||NEUTRAL,RBY[id]?initials(RBY[id].n):'?',face||'r'),'cv');function skillMeta(sk){
@@ -2138,10 +2260,45 @@ function showProfile(first){
   ov.onclick=first?null:e=>{if(e.target===ov)close()};
   if(first)setTimeout(()=>{const i=$('#pfnick');if(i)i.focus()},50);
 }
+/* ---------- sugestões (11/11/2026) ----------
+   Só com conta e no máximo 1 a cada 7 dias por conta. A regra está no servidor (ferramentas/supabase/sugestoes.sql, tabela "sugestoes");
+   aqui a tela só mostra o estado. Quem cuida do jogo lê as sugestões no Table Editor do Supabase. */
+const SUG_DAYS=7,SUG_MAX=500;
+const SUG_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="#F2C14E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z" fill="rgba(242,193,78,.18)"/></svg>';
+async function showSuggest(){
+  const ov=$('#mnov');if(!ov)return;ov.hidden=false;
+  const box=body=>{ov.innerHTML=`<div class="mn-box"><h2>Sugestões</h2>${body}<button class="btn" id="mnclose">Fechar</button></div>`;$('#mnclose').onclick=close};
+  const close=()=>{ov.hidden=true;ov.innerHTML=''};
+  ov.onclick=e=>{if(e.target===ov)close()};
+  box('<p class="hint">Conectando…</p>');
+  await sbLoad();
+  if(ov.hidden)return;
+  if(!SB.cli){box('<p>Sem conexão com o servidor agora. Confira a internet e tente de novo.</p>');return}
+  if(!SB.user){box(`<p>Mande ideias de personagens, ajustes ou o que quiser melhorar no jogo.</p><p><b style="color:#F7D774">Precisa ter conta pra sugerir.</b> Crie ou entre na sua conta pelo seu perfil (é grátis, só e-mail e senha). Cada conta manda 1 sugestão por semana.</p><button class="btn primary" id="sgprof" style="align-self:flex-start">Abrir meu perfil</button>`);$('#sgprof').onclick=()=>{close();showProfile(!getProf())};return}
+  const {data,error}=await SB.cli.from('sugestoes').select('texto,created_at').order('created_at',{ascending:false}).limit(1);
+  if(ov.hidden)return;
+  if(error){box('<p>A caixa de sugestões ainda não está ligada no servidor. Tente de novo mais tarde.</p>');return}
+  const last=data&&data[0],next=last?new Date(new Date(last.created_at).getTime()+SUG_DAYS*864e5):null;
+  if(next&&next>new Date()){
+    const d=Math.ceil((next-new Date())/864e5);
+    box(`<p>Você já mandou sua sugestão desta semana. A próxima libera ${d<=1?'amanhã':`em ${d} dias`} (${next.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}).</p><p class="hint">Sua última sugestão:</p><div class="sg-old">${esc(last.texto)}</div>`);return}
+  const form=msg=>{box(`<p>Mande ideias de personagens, ajustes ou o que quiser melhorar no jogo. Cada conta manda <b style="color:#F7D774">1 sugestão por semana</b>, então capricha.</p>
+    <textarea class="sg-txt" id="sgtxt" maxlength="${SUG_MAX}" placeholder="Escreva sua sugestão aqui"></textarea><div class="sg-cnt" id="sgcnt">0/${SUG_MAX}</div>
+    <p class="err" id="sgerr" role="alert">${msg||''}</p><button class="btn primary" id="sgsend" style="align-self:flex-start">Enviar sugestão</button>`);
+    const ta=$('#sgtxt');ta.oninput=()=>{$('#sgcnt').textContent=`${ta.value.length}/${SUG_MAX}`};ta.focus();
+    $('#sgsend').onclick=async()=>{const tx=cleanText(ta.value).slice(0,SUG_MAX),er=$('#sgerr'),bt=$('#sgsend');
+      if(tx.length<5){er.textContent='Escreva um pouco mais (pelo menos 5 letras).';return}
+      bt.disabled=true;er.textContent='Enviando…';
+      const p=getProf(),r=await SB.cli.from('sugestoes').insert({texto:tx,nick:(p&&p.nick||'').slice(0,16)});
+      if(r.error){bt.disabled=false;er.textContent=/row-level|policy|42501/i.test(r.error.message+r.error.code)?'Você já mandou uma sugestão nesta semana.':'Não deu pra enviar agora. Confira a internet e tente de novo.';return}
+      box('<p><b style="color:#F7D774">Valeu!</b> Sua sugestão foi enviada. Daqui a uma semana você pode mandar outra.</p>')}};
+  form();
+}
 function renderHome(){
   normalMode();
   app.screen='home';app.mode=null;document.body.classList.add('menu-on');
-  view.innerHTML=`<div class="mn"><div class="mn-stage" id="mnst"><img class="mn-img" id="mnimg" src="${MENU_IMG}" alt="" draggable="false">${MENU_HITS.map(b=>`<button class="mn-hit" id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${b.w}%;height:${b.h}%" aria-label="${b.aria}"><span class="lb">${b.lb}</span></button>`).join('')}${profCardHTML()}</div><div class="mn-ov" id="mnov" hidden></div></div>`;
+  view.innerHTML=`<div class="mn"><div class="mn-stage" id="mnst"><img class="mn-img" id="mnimg" src="${MENU_IMG}" alt="" draggable="false">${MENU_HITS.map(b=>`<button class="mn-hit" id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${b.w}%;height:${b.h}%" aria-label="${b.aria}"><span class="lb">${b.lb}</span></button>`).join('')}${profCardHTML()}<button class="mn-sug" id="goSug" aria-label="Mandar uma sugestão">${SUG_ICON}<span>Sugerir<small>1 por semana</small></span></button></div><div class="mn-ov" id="mnov" hidden></div></div>`;
+  $('#goSug').onclick=showSuggest;
   const img=$('#mnimg');img.onerror=()=>{const st=$('#mnst');if(st)st.classList.add('noimg');img.remove()};
   $('#goOnline').onclick=()=>renderOnline();
   $('#goCpu').onclick=()=>{app.mode='cpu';teamSel=[];teamInfo=null;renderPick()};
@@ -2163,66 +2320,91 @@ function showMenuSettings(){
 /* ---------- roster (display only) ---------- */
 const norm=x=>String(x).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const charNo=id=>CHARS.findIndex(c=>c.i===id)+1;
+// Coleção (11/11/2026): mesmo visual da escolha de personagem. Miniaturas à esquerda (busca e agrupar por ordem, universo ou estrelas),
+// o personagem grande à direita com a apresentação e as habilidades.
 function renderRoster(){
   normalMode();
   app.screen='roster';app.rg=app.rg||'ordem';
-  view.innerHTML=`${topBar('<button class="btn sm" id="back">Voltar</button>')}
-  <section class="panel pad stack">
-    <h2>Personagens</h2>
-    <div class="rtools"><input id="rq" type="search" placeholder="Buscar por nome ou universo" autocomplete="off" value="${esc(app.rq||'')}" aria-label="Buscar personagem">
-      <div class="seg" role="group" aria-label="Organizar por">${[['ordem','Ordem'],['universo','Universo'],['estrelas','Estrelas']].map(([k,n])=>`<button data-g="${k}" aria-pressed="${app.rg===k}">${n}</button>`).join('')}</div></div>
-    <p class="hint" id="rcount"></p>
-    <div class="stack" id="rlist"></div>
-  </section>`;
+  const all=CHARS.filter(c=>!c.hidden);
+  if(!app.rsel||!RBY[app.rsel])app.rsel=all[0].i;
+  view.innerHTML=psShell('Coleção','<button class="ps-btn" id="back">Voltar</button>',`<span class="ps-sub">${all.length} personagens</span>`,
+    `<section class="ps-col"><div class="ps-h">Personagens <span class="ps-sub" id="rcount" style="margin:0 0 0 auto;text-transform:none;letter-spacing:0"></span></div>
+      <div class="ps-tools"><input id="rq" type="search" placeholder="Buscar por nome ou universo" autocomplete="off" value="${esc(app.rq||'')}" aria-label="Buscar personagem">
+        <div class="ps-filt" id="rgrp" role="group" aria-label="Organizar por">${[['ordem','Ordem'],['universo','Universo'],['estrelas','Estrelas']].map(([k,n])=>`<button data-g="${k}" aria-pressed="${app.rg===k}">${n}</button>`).join('')}</div></div>
+      <div class="ps-grid" id="rlist"></div></section>
+    <section class="ps-col" id="info"></section>`,'','ps-pick');
   $('#back').onclick=renderHome;
   $('#rq').oninput=e=>{app.rq=e.target.value;renderRosterList()};
-  document.querySelector('.seg').onclick=e=>{const b=e.target.closest('[data-g]');if(!b)return;app.rg=b.dataset.g;document.querySelectorAll('.seg [data-g]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));renderRosterList()};
-  $('#rlist').onclick=e=>{const c=e.target.closest('.card');if(c)renderChar(c.dataset.id)};
-  renderRosterList();
+  $('#rgrp').onclick=e=>{const b=e.target.closest('[data-g]');if(!b)return;app.rg=b.dataset.g;$('#rgrp').querySelectorAll('[data-g]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));renderRosterList()};
+  $('#rlist').onclick=e=>{const c=e.target.closest('.ps-th');if(!c)return;renderChar(c.dataset.id);if(window.matchMedia('(max-width:760px)').matches)$('#info').scrollIntoView({behavior:'smooth',block:'start'})};
+  renderRosterList();renderChar(app.rsel);
 }
 function renderRosterList(){
   const q=norm(app.rq||'').trim();
   const all=CHARS.map((c,i)=>({c,no:i+1})).filter(x=>!x.c.hidden),list=all.filter(x=>!q||norm(x.c.n).includes(q)||norm(x.c.u).includes(q));
-  const card=x=>`<button class="card${x.c.soon?' soon':isLocked(x.c.i)?' locked':''}" data-id="${esc(x.c.i)}"><span class="no">Nº ${x.no}</span><span class="pic">${charArt(x.c.i)}</span><span class="nm">${esc(x.c.n)}</span><span class="uni">${esc(x.c.u)}</span>${starsOf(x.c.stars)}${x.c.soon?'<span class="soontag">Em breve</span>':isLocked(x.c.i)?'<span class="locktag">🔒 Bloqueado</span>':''}</button>`;
+  const th=x=>`<button class="ps-th${x.c.soon||isLocked(x.c.i)?' off':''}${x.c.i===app.rsel?' cur':''}" data-id="${esc(x.c.i)}" title="${esc(x.c.n)}" aria-label="${esc(x.c.n)}">${charArt(x.c.i)}<span class="st">${'★'.repeat(x.c.stars||0)}</span><span class="no">${x.no}</span><span class="nm">${esc(sname(x.c.i))}</span>${x.c.soon?'<span class="tk" style="color:#cfc7f0">Em breve</span>':isLocked(x.c.i)?'<span class="lk">🔒</span>':''}</button>`;
   let groups;
-  if(app.rg==='universo'){const m=new Map();list.forEach(x=>{if(!m.has(x.c.u))m.set(x.c.u,[]);m.get(x.c.u).push(x)});groups=[...m.entries()].sort((a,b)=>a[0].localeCompare(b[0],'pt')).map(([t,items])=>({t:esc(t),items}))}
-  else if(app.rg==='estrelas'){const m=new Map();list.forEach(x=>{const k=x.c.stars||0;if(!m.has(k))m.set(k,[]);m.get(k).push(x)});groups=[...m.entries()].sort((a,b)=>b[0]-a[0]).map(([k,items])=>({t:`${starsOf(k)} ${k} estrela${k>1?'s':''}`,items}))}
+  // Universo: os que têm 1 personagem só (contando a coleção inteira, não só a busca) vão juntos pro grupo "Outros", no fim.
+  if(app.rg==='universo'){const cnt={};all.forEach(x=>{cnt[x.c.u]=(cnt[x.c.u]||0)+1});const m=new Map(),oth=[];list.forEach(x=>{if(cnt[x.c.u]<2){oth.push(x);return}if(!m.has(x.c.u))m.set(x.c.u,[]);m.get(x.c.u).push(x)});groups=[...m.entries()].sort((a,b)=>a[0].localeCompare(b[0],'pt')).map(([t,items])=>({t:esc(t),items}));if(oth.length)groups.push({t:'Outros',items:oth})}
+  else if(app.rg==='estrelas'){const m=new Map();list.forEach(x=>{const k=x.c.stars||0;if(!m.has(k))m.set(k,[]);m.get(k).push(x)});groups=[...m.entries()].sort((a,b)=>b[0]-a[0]).map(([k,items])=>({t:`${'★'.repeat(k)} ${k} estrela${k>1?'s':''}`,items}))}
   else groups=[{t:'',items:list}];
-  $('#rcount').textContent=list.length?(q?`${list.length} de ${all.length} personagens.`:`${all.length} personagens. Toque em um pra ver as habilidades.`):'Nenhum personagem encontrado.';
-  $('#rlist').innerHTML=groups.map(g=>`${g.t?`<h3 class="gtitle">${g.t} <span class="hint">(${g.items.length})</span></h3>`:''}<div class="grid">${g.items.map(card).join('')}</div>`).join('');
+  $('#rcount').textContent=q?`${list.length} de ${all.length}`:`${all.length}`;
+  $('#rlist').innerHTML=list.length?groups.map(g=>`${g.t?`<div class="gt">${g.t} <span>(${g.items.length})</span></div>`:''}${g.items.map(th).join('')}`).join(''):'<p class="ps-sub gt">Nenhum personagem encontrado.</p>';
 }
 function renderChar(id){
-  const c=RBY[id];if(!c)return renderRoster();
-  normalMode();
-  app.screen='char';
-  view.innerHTML=`${topBar('<button class="btn sm" id="back">Personagens</button>')}
-  <section class="panel pad stack">
-    <div class="detail">
-      <div class="big">${charArt(c.i)}</div>
-      <div class="stack">
-        <div><p class="hint">${c.hidden?'Transformação':`Personagem nº ${charNo(c.i)}`}</p><h2>${esc(c.n)}</h2><p class="hint">${esc(c.u)}</p>${c.soon?'<p class="soontag">Em breve: ainda não dá pra escolher nas partidas</p>':''}</div>
-        <div>${starsOf(c.stars)}</div>
-        <p><b>Vida:</b> ${c.hp}</p>
-      </div>
-    </div>
-    <h3>Habilidades</h3>
-    <div class="skills">${c.sk.map(skillRow).join('')}</div>
-  </section>`;
-  $('#back').onclick=renderRoster;
+  const c=RBY[id],info=$('#info');if(!c)return;
+  if(app.screen!=='roster'||!info){app.rsel=id;return renderRoster()}
+  app.rsel=id;
+  document.querySelectorAll('#rlist .ps-th').forEach(t=>t.classList.toggle('cur',t.dataset.id===id));
+  info.dataset.id=id;info.innerHTML=psCharHTML(id);psSprite(id);
+  const tag=c.soon?'Em breve: ainda não dá pra escolher nas partidas.':isLocked(id)?'Bloqueado: jogue partidas online pra liberar.':'';
+  $('#pact').innerHTML=tag?`<span class="ps-sub">${tag}</span>`:'';$('#pact').hidden=!tag;
 }
 
 /* ---------- team picker ---------- */
-function pickerHTML(label){
-  const cfg=pickCfg();
-  return `<section class="panel pad stack">
-    <div><h2>Escolha ${teamSize(cfg)} personagens</h2><p class="hint">Toque num escolhido pra tirar.</p></div>
-    ${cfg.m==='bal'?`<p class="note">Modo Balanceado: ${BAL_RULE}</p>`:''}
-    ${rosterNote()}
-    <div class="slots" id="slots"></div>
-    <div class="grid" id="grid"></div>
-  </section>
-  <section class="panel pad stack" id="info"></section>
-  <div class="sticky"><button class="btn primary big" id="confirm" data-label="${esc(label)}">${esc(label)}</button></div>`;
+// Moldura das telas antes da batalha: fundo de uma arena escurecido, barra de cima, conteúdo e barra de baixo.
+function psShell(title,left,right,main,bot,cls){
+  if(app.psBg==null)app.psBg=Math.floor(Math.random()*BATTLE_BGS.length);
+  return `<div class="ps"><div class="ps-bg" style="background-image:url(${BATTLE_BGS[app.psBg]})"></div><header class="ps-top">${left||''}<div class="ps-ttl">${title}</div>${right||''}</header><main class="ps-main ${cls||''}">${main}</main>${bot?`<footer class="ps-bot">${bot}</footer>`:''}</div>`;
+}
+function pickerHTML(label,backId,sub){
+  const cfg=pickCfg(),n=teamSize(cfg);
+  return psShell(`Escolha ${n} personagens`,`<button class="ps-btn" id="${backId}">Voltar</button>`,sub?`<span class="ps-sub">${sub}</span>`:'',
+    `<section class="ps-col"><div class="ps-h">Personagens <span class="ps-sub" id="pcount" style="margin:0 0 0 auto;text-transform:none;letter-spacing:0"></span></div>
+      ${cfg.m==='bal'?`<p class="ps-sub">Balanceado: ${BAL_RULE}</p>`:''}
+      <div class="ps-filt" id="pfilt" role="group" aria-label="Filtrar por estrelas">${[0,5,4,3,2,1].map(s=>`<button data-s="${s}" aria-pressed="${(app.pf||0)===s}">${s?s+'★':'Todos'}</button>`).join('')}</div>
+      <div class="ps-grid" id="grid"></div></section>
+    <section class="ps-col" id="info"></section>`,
+    `<div class="ps-slots" id="slots"></div><span class="ps-sub" id="phint"></span><button class="ps-btn gold big" id="confirm" data-label="${esc(label)}">${esc(label)}</button>`,'ps-pick');
+}
+// Por que não dá pra pôr este personagem no time agora ('' = dá).
+function addWhy(id){
+  const cfg=pickCfg(),tk=takenMap(),twin=teamSel.find(x=>grpOf(x)===grpOf(id));
+  if(isLocked(id))return 'Bloqueado. Jogue partidas online pra liberar.';
+  if(tk[id])return `Já está no time de ${tk[id]}.`;
+  if(twin)return `É o mesmo personagem de ${RBY[twin].n}.`;
+  if(teamSel.length>=teamSize(cfg))return 'Time completo. Tire alguém embaixo pra trocar.';
+  if(cfg.m==='bal'&&!starsOk([...teamSel,id]))return `Já tem um personagem de ${RBY[id].stars}★ no time.`;
+  return '';
+}
+function togglePick(id){const k=teamSel.indexOf(id);if(k>=0)teamSel.splice(k,1);else if(!addWhy(id))teamSel.push(id);teamInfo=id;updatePicker()}
+// Personagem grande (arte ao fundo, sprite na frente, nome e estrelas) + espaço de ações (#pact) + apresentação e habilidades.
+function psCharHTML(id,tag){
+  const c=RBY[id],art=iconUrl(id),no=charNo(id);
+  return `<div class="ps-show">${art?`<div class="ps-art" style="background-image:url(${art})"></div>`:`<div class="ps-art">${charArt(id)}</div>`}<div class="ps-floor"></div><div class="ps-spr" id="pspr"><i></i></div>
+    <div class="ps-plate">${tag||''}<div class="n">${esc(c.n)}</div><div class="u">${c.hidden?'Transformação':`Nº ${no}`} · ${esc(c.u)} · ${c.hp} de vida</div>${starsOf(c.stars)}</div></div>
+    <div class="ps-act" id="pact"></div>
+    <div class="ps-desc">${BIO[id]?`<p class="bio">${esc(BIO[id])}</p>`:''}<div class="ps-h">Habilidades</div><div class="ps-sk">${c.sk.map(k=>`<div class="r" style="--kc:${KIND[k.kind].c}"><b>${esc(k.n)}</b><small>${KIND[k.kind].n}${(k.tags||[]).includes('fisica')?' · físico':''}${(k.tags||[]).includes('magica')?' · mágico':''}${k.passive?' · passiva':''}</small><p>${esc(k.d||'')}</p><p class="m">${skillMeta(k)}</p></div>`).join('')}</div></div>`;
+}
+// Sprite parado, grande, na frente da arte do personagem (estilo tela de seleção de jogo de luta).
+let psIv=null;
+function psSprite(id){
+  clearInterval(psIv);psIv=null;
+  const box=$('#pspr'),d=SPRITES[id];if(!box||!d||!d.a||!d.a.idle)return;
+  const show=box.closest('.ps-show'),i=box.querySelector('i'),fr=d.a.idle;let f=0;
+  const probe=new Image();probe.onerror=()=>{clearInterval(psIv);psIv=null;box.hidden=true};probe.src=d.src;
+  const paint=()=>{if(!document.body.contains(i)){clearInterval(psIv);psIv=null;return}box.style.setProperty('--u',(show.clientHeight*.7/SPR_H)+'px');const q=fr[f%fr.length];sprPaint(i,d.src,d.W,d.H,q[0],q[1],q[2],q[3],q[4],q[5],SPR_H/d.ref);f++};
+  paint();if(!reduceMotion)psIv=setInterval(paint,SPR_T.idle[0]);
 }
 function takenMap(){
   if(app.mode!=='online'||!NET.me)return {};
@@ -2236,43 +2418,64 @@ function renderPickerGrid(){
   const tk=takenMap(),cfg=pickCfg(),n=teamSize(cfg),keep=[];
   for(const id of teamSel){if(!pickable(id)||isLocked(id)||tk[id]||keep.length>=n||keep.some(x=>grpOf(x)===grpOf(id)))continue;if(cfg.m==='bal'&&!starsOk([...keep,id]))continue;keep.push(id)}
   teamSel=keep;
-  grid.innerHTML=CHARS.filter(c=>pickable(c.i)).map(c=>`<button class="card${isLocked(c.i)?' locked':''}" data-id="${esc(c.i)}" aria-pressed="false" ${tk[c.i]||isLocked(c.i)?'disabled':''}><span class="badge" hidden></span><span class="pic">${charArt(c.i)}</span><span class="nm">${esc(c.n)}</span><span class="uni">${esc(c.u)}</span>${starsOf(c.stars)}${tk[c.i]?`<span class="taken">Com ${esc(tk[c.i])}</span>`:isLocked(c.i)?'<span class="locktag">🔒 Bloqueado</span>':''}</button>`).join('');
+  const list=CHARS.filter(c=>pickable(c.i)),shown=list.filter(c=>!app.pf||c.stars===app.pf);
+  grid.innerHTML=shown.map(c=>`<button class="ps-th" data-id="${esc(c.i)}" title="${esc(c.n)}" aria-label="${esc(c.n)}">${charArt(c.i)}<span class="st">${'★'.repeat(c.stars||0)}</span><span class="nm">${esc(sname(c.i))}</span>${isLocked(c.i)?'<span class="lk">🔒</span>':''}${tk[c.i]?`<span class="tk">Com ${esc(tk[c.i])}</span>`:''}</button>`).join('')||'<p class="ps-sub">Nenhum personagem com essa estrela.</p>';
+  const pc=$('#pcount');if(pc)pc.textContent=`${shown.length} de ${list.length}`;
   updatePicker();
 }
 function mountPicker(onConfirm){
+  if(!teamInfo||!RBY[teamInfo]||!pickable(teamInfo))teamInfo=teamSel[0]||(CHARS.find(c=>pickable(c.i)&&!isLocked(c.i))||{}).i||null;
   renderPickerGrid();
-  $('#grid').onclick=e=>{const c=e.target.closest('.card');if(!c||c.disabled)return;const id=c.dataset.id;
-    const cfg=pickCfg(),k=teamSel.indexOf(id);if(k>=0)teamSel.splice(k,1);else if(teamSel.length<teamSize(cfg)&&!teamSel.some(x=>grpOf(x)===grpOf(id))&&(cfg.m!=='bal'||starsOk([...teamSel,id])))teamSel.push(id);teamInfo=id;updatePicker()};
-  $('#slots').onclick=e=>{const s=e.target.closest('.slot');if(!s||!s.dataset.id)return;teamSel=teamSel.filter(x=>x!==s.dataset.id);updatePicker()};
+  // Toque mostra o personagem à direita; toque duplo (ou o botão Escolher) põe ou tira do time.
+  $('#grid').onclick=e=>{const c=e.target.closest('.ps-th');if(!c)return;teamInfo=c.dataset.id;updatePicker()};
+  $('#grid').ondblclick=e=>{const c=e.target.closest('.ps-th');if(c)togglePick(c.dataset.id)};
+  $('#pfilt').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;app.pf=+b.dataset.s;$('#pfilt').querySelectorAll('[data-s]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));renderPickerGrid()};
+  $('#slots').onclick=e=>{const s=e.target.closest('.ps-slot.full');if(!s)return;teamSel=teamSel.filter(x=>x!==s.dataset.id);teamInfo=s.dataset.id;updatePicker()};
+  $('#info').onclick=e=>{if(e.target.closest('#ptog')&&teamInfo)togglePick(teamInfo)};
   $('#confirm').onclick=()=>{if(teamSel.length===teamSize(pickCfg())&&!$('#confirm').disabled)onConfirm(teamSel.slice())};
 }
 function updatePicker(){
   const slots=$('#slots');if(!slots)return;
-  const cfg=pickCfg(),n=teamSize(cfg),bal=cfg.m==='bal';
-  slots.style.gridTemplateColumns=`repeat(${n},1fr)`;
-  slots.innerHTML=Array.from({length:n},(_,i)=>i).map(i=>{const id=teamSel[i];return id
-    ?`<button class="slot full" data-id="${esc(id)}" aria-label="Tirar ${esc(RBY[id].n)}"><span class="mini">${charArt(id)}</span><span>${esc(RBY[id].n)}</span></button>`
-    :`<div class="slot">${['Primeiro','Segundo','Terceiro'][i]}</div>`}).join('');
-  const tk=takenMap();
-  document.querySelectorAll('#grid .card').forEach(c=>{const id=c.dataset.id,k=teamSel.indexOf(id);c.setAttribute('aria-pressed',k>=0?'true':'false');const b=c.querySelector('.badge');b.hidden=k<0;b.textContent=k>=0?k+1:'';
-    const twin=k<0&&teamSel.find(x=>grpOf(x)===grpOf(id)),st=RBY[id].stars,star=k<0&&bal&&!twin&&!starsOk([...teamSel,id]);c.disabled=!!tk[id]||!!twin||star||isLocked(id);
-    let t=c.querySelector('.taken');if(!t&&(tk[id]||twin||star)){t=document.createElement('span');t.className='taken';c.appendChild(t)}if(t)t.textContent=tk[id]?`Com ${tk[id]}`:twin?`Mesmo personagem de ${RBY[twin].n}`:star?`Já tem um ${st}★ no time`:''});
+  const cfg=pickCfg(),n=teamSize(cfg),tk=takenMap();
+  slots.innerHTML=Array.from({length:n},(_,i)=>{const id=teamSel[i];return id
+    ?`<button class="ps-slot full" data-id="${esc(id)}" title="Tirar ${esc(RBY[id].n)}" aria-label="Tirar ${esc(RBY[id].n)}">${charArt(id)}</button>`
+    :`<div class="ps-slot">${i+1}</div>`}).join('');
+  document.querySelectorAll('#grid .ps-th').forEach(c=>{const id=c.dataset.id,k=teamSel.indexOf(id);
+    c.classList.toggle('sel',k>=0);c.dataset.n=k>=0?k+1:'';c.classList.toggle('cur',id===teamInfo);c.classList.toggle('off',k<0&&(!!tk[id]||isLocked(id)||!!teamSel.find(x=>grpOf(x)===grpOf(id))||(cfg.m==='bal'&&!starsOk([...teamSel,id]))))});
   const cf=$('#confirm'),extra=app.mode==='cpu'&&distinctChars()<NEED2;
   cf.disabled=teamSel.length!==n||extra;
   cf.textContent=teamSel.length!==n?`Faltam ${n-teamSel.length}`:extra?'Personagens insuficientes':cf.dataset.label;
+  const ph=$('#phint');if(ph)ph.textContent=teamSel.length?'Toque num escolhido embaixo pra tirar.':'Toque duas vezes num personagem, ou use Escolher.';
   const info=$('#info'),id=teamInfo&&RBY[teamInfo]?teamInfo:teamSel[0];
-  if(!id){info.innerHTML='<p class="hint">Toque num personagem pra ver as habilidades dele.</p>';return}
-  const c=RBY[id];
-  info.innerHTML=`<div class="row"><h3>${esc(c.n)}</h3>${starsOf(c.stars)}<span class="hint">${esc(c.u)}, ${c.hp} de vida</span></div><div class="skills">${c.sk.map(skillRow).join('')}</div>`;
+  if(!id){info.innerHTML='<p class="ps-sub">Toque num personagem pra ver quem ele é.</p>';return}
+  const c=RBY[id],sel=teamSel.includes(id),why=sel?'':addWhy(id),art=iconUrl(id);
+  const same=info.dataset.id===id;
+  if(!same){
+    info.dataset.id=id;info.innerHTML=psCharHTML(id);psSprite(id);
+  }
+  $('#pact').innerHTML=`<button class="ps-btn ${sel?'':'gold'}" id="ptog" ${!sel&&why?'disabled':''}>${sel?'Tirar do time':'Escolher'}</button><span class="ps-sub">${esc(why)}</span>`;
 }
+// Treino: primeiro a configuração, depois a escolha do time.
 function renderPick(){
   normalMode();
-  app.screen='pick';
-  const cpus=distinctChars()>=NEED3?2:1;
-  view.innerHTML=`${topBar('<button class="btn sm" id="quit">Voltar</button>')}
-  <section class="panel pad"><p><b>Treino:</b> você contra ${cpus===2?'dois computadores':'um computador'}.</p></section>
-  ${pickerHTML('Começar treino')}`;
+  app.screen='pick-cfg';
+  const max=distinctChars()>=NEED3?2:1;if(!app.cpuN||app.cpuN>max)app.cpuN=max;
+  const nick=myNick()||'Você';
+  view.innerHTML=psShell('Treino','<button class="ps-btn" id="quit">Voltar</button>','',
+    `<section class="ps-col ps-narrow"><div class="ps-h">Configurar treino</div><div class="stack">
+      <p class="ps-sub">Você joga como <b style="color:var(--gold2)">${esc(nick)}</b> contra o computador.</p>
+      <div class="stack" style="gap:6px"><b style="font-family:var(--pix);color:var(--gold2)">Adversários</b><div class="seg" role="group" aria-label="Adversários">${[1,2].map(k=>`<button data-n="${k}" aria-pressed="${app.cpuN===k}" ${k>max?'disabled':''}>${k} computador${k>1?'es':''}</button>`).join('')}</div></div>
+      <p class="ps-sub">Regras do modo Livre: time de 3 personagens, sem regra de estrelas. No treino não tem limite de tempo pra decidir os counters.</p>
+      <button class="ps-btn gold big" id="go">Escolher personagens</button></div></section>`,'','ps-center');
   $('#quit').onclick=renderHome;
+  view.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{app.cpuN=+b.dataset.n;renderPick()});
+  $('#go').onclick=renderPickTeam;
+}
+function renderPickTeam(){
+  normalMode();
+  app.screen='pick';
+  view.innerHTML=pickerHTML('Começar treino','quit',`Treino · ${app.cpuN} computador${app.cpuN>1?'es':''}`);
+  $('#quit').onclick=renderPick;
   mountPicker(team=>startCpu(team));
 }
 
@@ -2283,13 +2486,13 @@ function renderOnline(prefill){
   const nick=myNick();
   let body;
   if(CAP.state==='pending')body='<p class="hint">Conectando…</p>';
-  else if(CAP.state!=='ok')body=`<p>O modo online funciona quando esta página está aberta no Claude, com você conectado na sua conta.</p><button class="btn primary" id="toCpu">Treinar</button>`;
+  else if(CAP.state!=='ok')body=`<p class="hint">O modo online precisa de internet. Confira a conexão e tente de novo.</p><button class="btn primary" id="toCpu">Treinar</button>`;
   else body=`<label>Seu apelido<input id="nick" maxlength="16" autocomplete="nickname" placeholder="Como os outros vão te ver" value="${esc(nick)}"></label>
     <button class="btn primary big" id="create">Criar sala</button>
-    <p class="hint">Ou entre na sala de alguém:</p>
-    <div class="row"><input id="code" maxlength="4" placeholder="código" autocapitalize="off" autocomplete="off" spellcheck="false" style="flex:1;letter-spacing:3px" value="${esc(app.prefill)}"><button class="btn" id="join">Entrar</button></div>
+    <p class="hint" style="text-align:center">ou entre na sala de alguém</p>
+    <div class="row" style="flex-wrap:nowrap"><input id="code" maxlength="4" placeholder="código" autocapitalize="off" autocomplete="off" spellcheck="false" style="flex:1;letter-spacing:6px;font-family:var(--pix);font-size:20px;text-transform:uppercase" value="${esc(app.prefill)}"><button class="btn" id="join">Entrar</button></div>
     <p class="err" id="err" role="alert"></p>`;
-  view.innerHTML=`${topBar('<button class="btn sm" id="back">Voltar</button>')}<section class="panel pad stack"><h2>Batalha online</h2><p class="hint">Até 3 jogadores por sala. Quem cria a sala escolhe o modo: Livre ou Balanceado. Se faltar gente, o computador pode completar.</p>${body}</section>`;
+  view.innerHTML=psShell('Batalha online','<button class="ps-btn" id="back">Voltar</button>','',`<section class="ps-col ps-narrow"><div class="ps-h">Entrar numa sala</div><div class="stack"><p class="hint">Até 3 jogadores por sala. Quem cria a sala escolhe o modo (Livre ou Balanceado). Se faltar gente, o computador pode completar. Depois de entrar, cada um escolhe o seu time.</p>${body}</div></section>`,'','ps-center');
   $('#back').onclick=()=>{clearHash();renderHome()};
   const tc=$('#toCpu');if(tc)tc.onclick=()=>{app.mode='cpu';teamSel=[];renderPick()};
   const getNick=()=>{const n=cleanText($('#nick').value).slice(0,16);if(!n){$('#err').textContent='Escolha um apelido antes de entrar.';$('#nick').focus();return null}const p=getProf();if(p){p.nick=n;saveProf(p)}else store.set('mv:nick',n);return n};
@@ -2309,7 +2512,7 @@ async function joinRoom(code,nick,creator){
   if(!Array.isArray(NET.me.rsp))NET.me.rsp=[];
   NET.me.cfg=sanCfg(NET.me.cfg);
   NET.me.nick=nick;
-  app.mode='online';
+  app.mode='online';app.pickOpen=false;
   teamSel=NET.me.team.filter(id=>pickable(id));teamInfo=null;
   setHash(code);pushPresence();
   NET.unsubs.push(room.onPeers(ch=>{NET.peers=ch.peers;syncOnline()},()=>{}));
@@ -2367,7 +2570,7 @@ function syncOnline(force){
   }
   const L=host.lineup;
   if(L&&L.g===me.game&&L.g===host.game){startFromLineup(L,os);return}
-  const want=teamOk(me.team,curCfg())?'lobby-ready':'lobby-pick';
+  const want=teamOk(me.team,curCfg())?'lobby-ready':app.pickOpen?'lobby-pick':'lobby-cfg';
   if(app.screen!==want||force)renderLobby();
   else{updateLobby();if(want==='lobby-pick')renderPickerGrid()}
 }
@@ -2385,16 +2588,26 @@ function renderLobby(){
   const me=NET.me,ready=teamOk(me.team,curCfg());
   if(!ready&&me.team.length&&!teamSel.length)teamSel=me.team.slice();
   normalMode();
-  app.screen=ready?'lobby-ready':'lobby-pick';
-  view.innerHTML=`${topBar('<button class="btn sm" id="quit">Sair da sala</button>')}
-  <section class="panel room"><div><div class="hint">Código da sala</div><div class="code">${esc(NET.code)}</div></div><button class="btn sm" id="copy">Copiar</button><p class="roomhint">Mande o código pros amigos. Eles abrem esta mesma página, tocam em Batalha online e entram com o código.</p></section>
-  <section class="panel pad stack" id="modebox"></section>
-  <section class="panel pad stack"><div class="row" style="justify-content:space-between"><h3>Na sala</h3><span class="netinfo" id="conn"></span></div><div class="plist" id="plist"></div><div id="hostctl" class="stack"></div></section>
-  ${ready?`<section class="panel pad stack"><h3>Seu time</h3><div class="slots">${me.team.map(id=>`<div class="slot full"><span class="mini">${charArt(id)}</span><span>${esc(RBY[id].n)}</span></div>`).join('')}</div><p class="err" id="dupmsg"></p><button class="btn" id="change">Trocar time</button></section>`:pickerHTML('Usar este time')}`;
+  // Escolha de time em tela própria (aberta pelo botão Escolher personagens); a sala é a tela de configuração.
+  if(!ready&&app.pickOpen){
+    app.screen='lobby-pick';
+    view.innerHTML=pickerHTML('Usar este time','back',`Sala ${esc(String(NET.code).toUpperCase())} · ${MODE_NAME[curCfg().m]}`);
+    $('#back').onclick=()=>{app.pickOpen=false;renderLobby()};
+    mountPicker(team=>{me.team=team;app.pickOpen=false;pushPresence();syncOnline(true)});
+    return;
+  }
+  app.screen=ready?'lobby-ready':'lobby-cfg';
+  view.innerHTML=psShell('Sala de batalha','<button class="ps-btn" id="quit">Sair da sala</button>','',
+    `<section class="ps-col"><div class="ps-h">Código da sala</div><div class="ps-code"><span>${esc(NET.code)}</span><button class="ps-btn" id="copy">Copiar</button></div><p class="hint">Mande o código pros amigos. Eles abrem o jogo, tocam em Batalha e entram com o código.</p><div class="stack" id="modebox" style="margin-top:12px"></div></section>
+    <section class="ps-col"><div class="ps-h">Na sala <span class="netinfo" id="conn"></span></div><div class="plist" id="plist"></div>
+      <div class="ps-h" style="margin-top:14px">Seu time</div>
+      ${ready?`<div class="ps-slots">${me.team.map(id=>`<div class="ps-slot full" title="${esc(RBY[id].n)}" style="cursor:default">${charArt(id)}</div>`).join('')}</div><p class="err" id="dupmsg"></p><div class="row"><button class="ps-btn" id="change">Trocar time</button></div>`
+        :`<p class="hint">${me.team.length?'Seu time não serve pro modo escolhido. Escolha de novo.':'Você ainda não escolheu seu time.'}</p><button class="ps-btn gold big" id="pickgo">Escolher personagens</button>`}
+      <div id="hostctl" class="stack" style="margin-top:14px"></div></section>`,'','ps-lobby');
   $('#quit').onclick=leaveRoom;
   const cp=$('#copy');cp.onclick=()=>{try{navigator.clipboard.writeText(NET.code).then(()=>{cp.textContent='Copiado'},()=>{cp.textContent='Copie à mão'})}catch(e){cp.textContent='Copie à mão'}};
-  if(ready)$('#change').onclick=()=>{teamSel=me.team.slice();me.team=[];pushPresence();syncOnline(true)};
-  else mountPicker(team=>{me.team=team;pushPresence();syncOnline(true)});
+  if(ready)$('#change').onclick=()=>{teamSel=me.team.slice();me.team=[];app.pickOpen=true;pushPresence();syncOnline(true)};
+  else $('#pickgo').onclick=()=>{app.pickOpen=true;renderLobby()};
   updateLobby();
 }
 function cfgText(cfg){return cfg.m==='bal'?`${cfg.n} jogadores, ${cfg.n} personagens por time. ${BAL_RULE}`:'Até 3 jogadores, 3 personagens por time, sem regra de estrelas.'}
@@ -2485,7 +2698,7 @@ function feedActs(os){
 
 /* ---------- match ---------- */
 function startCpu(team){
-  const used=new Set(team.map(grpOf)),cpus=distinctChars()>=NEED3?2:1,teams=[team];
+  const used=new Set(team.map(grpOf)),cpus=Math.min(app.cpuN||2,distinctChars()>=NEED3?2:1),teams=[team];
   for(let k=0;k<cpus;k++)teams.push(pickFree(used,Math.random));
   createMatch({mode:'cpu',mySide:0,teams,names:[myNick()||'Você',...teams.slice(1).map((_,k)=>'Computador '+(k+1))],seed:rid(),game:0,pids:teams.map(()=>null),cpu:teams.map((_,k)=>k>0)});
 }
@@ -2542,7 +2755,7 @@ function renderNeed(){
     el.innerHTML=`<div class="b-h">${iconSvg('shield','#6ff59a')}Counter · ${esc(sname(d.i))}</div><p class="b-sub">${cs.cmode==='redirect'?'O ataque é bloqueado e vai pro inimigo escolhido.':`O ataque é bloqueado, e o inimigo escolhido leva ${cs.cdmg*dmgMult(M.B.sides[N.j].chars[N.c])} de dano.`}</p><div class="b-skills" style="grid-template-columns:repeat(3,1fr)">${N.tgts.map(p=>{const x=M.disp.sides[p[0]].chars[p[1]],tid=cid(p[0],p[1]);return `<button class="b-sk" data-ck="${pk}${p[0]}${p[1]}" style="--kc:${PC[p[0]]}"><span class="si face">${portraitSvg(tid,p[0])}</span><span class="sx"><span class="sn">${esc(sname(tid))}</span><span class="ss cd">J${p[0]+1} · ${x.hp} de vida</span></span></button>`}).join('')}</div><div class="b-row"><button class="b-btn" id="nback">Voltar</button>${tm}</div>`;
     $('#nback').onclick=()=>{M.needPick=null;renderControls()};
   }else{
-    el.innerHTML=`<div class="b-h">${iconSvg('shield','#6ff59a')}Counter · ${esc(sname(d.i))}</div><div class="b-skills" style="${gridCols(N.opts.length)}">${N.opts.map((k,i)=>{const gd=k>=100,gc=gd?Math.floor((k-100)/10):0,gid=gd?cid(N.j,gc):'',cs=gd?RBY[gid].sk[k%10]:d.sk[k],l=N.left[i],pick=!gd&&(cs.cmode==='strike'||cs.cmode==='redirect'||cs.cmode==='yrden')&&N.tgts.length,[ic,col]=skIcon(cs);return `<button class="b-sk" ${pick?`data-cp="${SKL[k]}"`:`data-ck="${gd?SKL[k%10]+'g'+gc:SKL[k]}"`} style="--kc:${KIND.counter.c}" title="${esc(cs.d||'')}"><span class="si">${iconSvg(ic,col)}</span><span class="sx"><span class="sn">${esc(cs.n)}${gd?' ('+esc(sname(gid))+')':''}</span><span class="ss">${l!=null?`${l} ${l===1?'uso':'usos'}`:'Usar'}${pick?' · escolher alvo':''}</span></span></button>`}).join('')}</div><div class="b-row"><span class="b-sub">${N.j>N.s?`Se usar, ${esc(tgt)} não vai poder usar técnica na próxima vez dele.`:'Usar o counter gasta a técnica dele nesta rodada.'}</span><button class="b-btn" data-ck="-">Não usar counter</button>${tm}</div>`;
+    el.innerHTML=`<div class="b-h">${iconSvg('shield','#6ff59a')}Counter · ${esc(sname(d.i))}</div><p class="b-sub b-atk"><b>${esc(ask.n)}</b> de ${esc(att)}: ${esc(atkChips(ask,M.B.sides[N.s].chars[N.ac],N.dmg||null).join(' · ')||'sem dano')}</p><div class="b-skills" style="${gridCols(N.opts.length)}">${N.opts.map((k,i)=>{const gd=k>=100,gc=gd?Math.floor((k-100)/10):0,gid=gd?cid(N.j,gc):'',cs=gd?RBY[gid].sk[k%10]:d.sk[k],l=N.left[i],pick=!gd&&(cs.cmode==='strike'||cs.cmode==='redirect'||cs.cmode==='yrden')&&N.tgts.length,[ic,col]=skIcon(cs);return `<button class="b-sk" ${pick?`data-cp="${SKL[k]}"`:`data-ck="${gd?SKL[k%10]+'g'+gc:SKL[k]}"`} style="--kc:${KIND.counter.c}" title="${esc(cs.d||'')}"><span class="si">${iconSvg(ic,col)}</span><span class="sx"><span class="sn">${esc(cs.n)}${gd?' ('+esc(sname(gid))+')':''}</span><span class="ss">${l!=null?`${l} ${l===1?'uso':'usos'}`:'Usar'}${pick?' · escolher alvo':''}</span></span></button>`}).join('')}</div><div class="b-row"><span class="b-sub">${N.j>N.s?`Se usar, ${esc(tgt)} não vai poder usar técnica na próxima vez dele.`:'Usar o counter gasta a técnica dele nesta rodada.'}</span><button class="b-btn" data-ck="-">Não usar counter</button>${tm}</div>`;
     el.querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>{M.needPick={key,l:b.dataset.cp};renderControls()});
   }
   el.querySelectorAll('[data-ck]').forEach(b=>b.onclick=()=>respondCounter(b.dataset.ck));
@@ -2948,12 +3161,25 @@ function drawTeam(){
     const st=ch.dead?'Caiu':n?`${n}/2`:'';
     return `<button class="b-mem${c===foc?' sel':''}${ch.dead?' dead':''}" data-mc="${c}" style="--pc:${PC[v]}"><span class="b-face">${portraitSvg(id,v)}</span><span class="b-mi"><span class="b-mtop"><span class="b-mn">${esc(sname(id))}</span><span class="b-mv">${ch.dead?0:ch.hp} / ${ch.max}</span></span><span class="b-mh"><span class="b-hp"><i class="${hpCls(pct)}" style="width:${pct}%"></i></span></span></span><span class="b-mfx">${ch.dead?'':fxIcons(ch.fx)}${st?`<span class="b-mt">${st}</span>`:''}</span></button>`}).join('')}</div>`;
 }
+// Números de um golpe já com o multiplicador de quem usa (Heavy Point, Black Matter, Gears...): dano, dano depois, turnos sem agir, tipo e alvos.
+function atkChips(sk,ch,dmg){
+  const m=ch?dmgMult(ch):1,r=[],x=v=>Math.round(v*m),tt=sk.tags||[];
+  if(sk.dmg||dmg){const v=dmg!=null?Math.round(dmg):x(sk.dmg);r.push(m!==1&&sk.dmg&&v===x(sk.dmg)?`Dano ${v} (${sk.dmg} x${+m.toFixed(2)})`:`Dano ${v}`)}
+  if(sk.dot)r.push(`+${x(sk.dot.dmg)} ${sk.dot.turns>1?`por ${sk.dot.turns} turnos`:'no próximo turno'}`);
+  if(sk.stun)r.push(`${sk.stun} turno${sk.stun>1?'s':''} sem agir`);
+  if(sk.maxT>1)r.push(`Até ${sk.maxT} alvos`);
+  if(sk.tg==='all')r.push('Todos os inimigos');
+  if(sk.kind!=='tecnica'){const ty=tt.includes('fisica')&&tt.includes('magica')?'Físico e mágico':tt.includes('fisica')?'Físico':tt.includes('magica')?'Mágico':'';if(ty)r.push(ty)}
+  if(sk.pierce)r.push('Ignora counters');
+  if(sk.selfCost)r.push(`Custa ${sk.selfCost} de vida`);
+  return r;
+}
 function drawInfo(){
   const el=$('#pinfo');if(!el||!M)return;
   const N=M.need;
   if(N&&N.j===M.mySide&&!M.playing){
-    const aid=cid(N.s,N.ac),sk=RBY[aid].sk[N.k];
-    el.innerHTML=`<div class="b-h">Ataque chegando <span class="b-jt" style="--pc:${PC[N.s]}">J${N.s+1}</span></div><div class="b-who"><span class="b-bigface" style="--pc:${PC[N.s]}">${portraitSvg(aid,N.s)}</span><div><div class="b-wn">${esc(RBY[aid].n)}</div><div class="b-sub">usa <b>${esc(sk.n)}</b> em ${esc(cname(N.j,N.c))}</div>${N.dmg?`<div class="b-dmgline">${N.dmg} de dano</div>`:''}</div></div><p class="b-desc">${esc(sk.d||'')}</p>`;
+    const aid=cid(N.s,N.ac),sk=RBY[aid].sk[N.k],kv=atkChips(sk,M.B.sides[N.s].chars[N.ac],N.dmg||null).map(t=>`<span>${esc(t)}</span>`).join('');
+    el.innerHTML=`<div class="b-h">Ataque chegando <span class="b-jt" style="--pc:${PC[N.s]}">J${N.s+1}</span></div><div class="b-who"><span class="b-bigface" style="--pc:${PC[N.s]}">${portraitSvg(aid,N.s)}</span><div><div class="b-wn">${esc(RBY[aid].n)}</div><div class="b-sub">usa <b>${esc(sk.n)}</b> em ${esc(cname(N.j,N.c))}</div>${N.dmg?`<div class="b-dmgline">${N.dmg} de dano</div>`:''}</div></div>${kv?`<div class="b-kv">${kv}</div>`:''}<p class="b-desc">${esc(sk.d||'')}</p>`;
     return;
   }
   const P=planning()?M.plan:null,v=viewSide();
@@ -2965,7 +3191,7 @@ function drawInfo(){
     // Com habilidade escolhida: nome, tipo, situação (recarga, usos), alvo e descrição.
     const ch=(M.planT&&v===M.mySide?M.planT.T:M.B).sides[v].chars[owner],why=P&&v===M.mySide?skillCheck(M.planT.T,v,owner,skk,M.planT.used):'',cd=ch.cd[sk.id]||0,left=sk.charges?ch.ch[chKey(sk)]:null;
     const tg=sk.kind==='counter'?'Quando for atacado':sk.tg==='self'?'Em si mesmo':sk.tg==='all'?'Todos os inimigos':sk.tg==='ally'?'1 aliado':sk.tg==='any'?`${sk.maxT||1} quaisquer`:sk.maxT>1?`Até ${sk.maxT} inimigos`:'1 inimigo';
-    const kv=[why&&!/^Só na hora/.test(why)?`<span class="${cd>0?'cd':'no'}">${esc(why)}</span>`:`<span class="ok">Disponível</span>`,`<span>Alvo: ${esc(tg)}</span>`,left!=null?`<span>${left} ${left===1?'uso':'usos'}</span>`:'',sk.cd?`<span>Recarga ${sk.cd}</span>`:'',sk.buff&&sk.buff.turns&&sk.buff.turns<999?`<span>Dura ${sk.buff.turns}</span>`:''].join('');
+    const kv=[why&&!/^Só na hora/.test(why)?`<span class="${cd>0?'cd':'no'}">${esc(why)}</span>`:`<span class="ok">Disponível</span>`,`<span>Alvo: ${esc(tg)}</span>`,left!=null?`<span>${left} ${left===1?'uso':'usos'}</span>`:'',sk.cd?`<span>Recarga ${sk.cd}</span>`:'',sk.buff&&sk.buff.turns&&sk.buff.turns<999?`<span>Dura ${sk.buff.turns}</span>`:'',...(sk.kind==='counter'?[]:atkChips(sk,ch).filter(x=>!/^(Até|Todos)/.test(x)).map(x=>`<span>${esc(x)}</span>`))].join('');
     el.innerHTML=`<div class="b-h">${iconSvg('up','#f2c14e')}Detalhes</div><div class="b-who"><span class="b-bigface sk" style="--pc:${KIND[sk.kind].c}">${iconSvg(...skIcon(sk))}</span><div><div class="b-wn">${esc(sk.n)}</div><div class="b-tags">${kchip(sk.kind)}${(sk.tags||[]).map(tchip).join('')}</div></div></div><div class="b-kv">${kv}</div><p class="b-desc">${esc(sk.d||'')}</p>`;
     return;
   }
@@ -3069,7 +3295,7 @@ const SPR_POSE={revenge:'attack',fullcounter:'attack',tacto:'jutsu',mes:'attack'
 const SPR_FORMC={gear2:'#ff6f91',gear4:'#ff3b3b',gear5:'#ffffff',theone:'#ffd34d',nighttime:'#7b5bff',berserker:'#8a5bd1',zanzoken:'#5fb7ff',heavypoint:'#ff6fb0',monsterpoint:'#ff3b9a'};
 const SPR_AURA={susanoo:{sc:1.55,c:'#a46bff'},blackmatter:{sc:1.3,c:'#9b30ff'},room:{sc:1.5,c:'#33d1ff'},emperor:{sc:1.3,c:'#ff2a2a'},avatar:{sc:1.25,c:'#7fe7ff'},setimo:{sc:1.3,c:'#ffd34d'},sabio:{sc:.85,c:'#ffa83a'},sunshine:{sc:1.3,c:'#ffb347'},ohm:{sc:1.25,c:'#ffd34d'},furia:{sc:1.3,c:'#ff3b3b'},metamorphosis:{sc:1.3,c:'#ff2a4d'},gaiola:{sc:1.35,c:'#ff6fd8'},kaioken:{sc:1.3,c:'#ff3b3b'}};
 // Liga a aura na hora em que a técnica passa a valer (o sprSync confirma depois pelo estado).
-function sprAuraOn(e,id){const el=e&&$(`#fs-${e.s}-${e.c}`),d=el&&SPRITES[el.dataset.id];if(!el||!el.classList.contains('has-sa')||!d.fx||d.fx.bad||!d.fx.a[id])return false;const st=sprSt(el);st.sus=id;st.s0=performance.now();sprEnsure();return true}
+function sprAuraOn(e,id){const el=e&&$(`#fs-${e.s}-${e.c}`),d=el&&SPRITES[el.dataset.id];if(!el||!el.classList.contains('has-sa')||!d.fx||d.fx.bad||!d.fx.a[id])return false;const st=sprSt(el);st.sus=id;st.susD=null;st.s0=performance.now();sprEnsure();return true}
 const sprOk=id=>!!(SPRITES[id]&&!sprBad[id]);
 const sprFxOk=id=>sprOk(id)&&SPRITES[id].fx&&!SPRITES[id].fx.bad;
 function sprLoad(){Object.keys(SPRITES).forEach(id=>{const d=SPRITES[id];if(d.img)return;
@@ -3091,8 +3317,11 @@ function sprFormOn(e,id){const el=e&&$(`#fs-${e.s}-${e.c}`),d=el&&SPRITES[el.dat
   const st=sprSt(el);if(st.form!==id){st.form=id;st.one='trans';st.o0=performance.now();st.key=''}sprEnsure();return true}
 function sprSync(el,ch){if(!el.classList.contains('has-sa'))return;const st=sprSt(el);
   sprBase(el,ch.dead?'faint':st.win?'victory':ch.fx.some(f=>f.k==='genki')&&SPRITES[el.dataset.id].a.genki?'genki':snapStunned(ch)?'stun':ch.hp/ch.max<=.3?'low':'idle');
-  const d=SPRITES[el.dataset.id],b=ch.dead?null:ch.fx.find(f=>f.k==='buff'&&!f.pending&&SPR_AURA[f.id]&&d.fx&&d.fx.a[f.id]),sus=b?b.id:'';
-  if(sus!==st.sus){st.sus=sus;st.s0=performance.now()}
+  const d=SPRITES[el.dataset.id],b=ch.dead?null:ch.fx.find(f=>f.k==='buff'&&!f.pending&&SPR_AURA[f.id]&&d.fx&&d.fx.a[f.id]);
+  // Preso na Room: a Room de quem prendeu aparece atrás dele também (atlas do Law).
+  let sus=b?b.id:'',susD=null;
+  if(!sus&&!ch.dead){const tf=ch.fx.find(f=>f.k==='taunt'&&f.by);const LD=tf&&SPRITES[cid(tf.by[0],tf.by[1])];if(LD&&LD.fx&&!LD.fx.bad&&LD.fx.a.room){sus='room';susD=LD}}
+  if(sus!==st.sus||susD!==(st.susD||null)){st.sus=sus;st.susD=susD;st.s0=performance.now()}
   if(d.forms){const g=ch.dead?null:[...ch.fx].reverse().find(f=>f.k==='buff'&&!f.pending&&d.forms[f.id]),form=g?g.id:'';
     if(form!==st.form){const was=st.form;st.form=form;st.key='';if(form&&form!==was){st.one='trans';st.o0=performance.now()}}}}
 let sprIv=null;
@@ -3114,12 +3343,12 @@ function sprTick(){
       if(sk!==st.skey){st.skey=sk;const q=FX[n];sprPaint(sv0,FA.fx.src,FA.fx.W,FA.fx.H,q[0],q[1],q[2],q[3],q[2]/2,q[3],SPR_H/FA.ref*.6);sv0.style.opacity=.65;sv0.parentNode.style.setProperty('--ag',SPR_FORMC[st.form]||'#ffffff')}
       return}
     // Técnica com aura (SPR_AURA: Susanoo, Black Matter): sobe quadro a quadro quando passa a valer e fica atrás dele, mais fraca, enquanto durar.
-    const sv=el.querySelector('.b-sus i'),S=st.sus&&d.fx&&!d.fx.bad&&d.fx.a[st.sus];
+    const AD=st.susD||d,sv=el.querySelector('.b-sus i'),S=st.sus&&AD.fx&&!AD.fx.bad&&AD.fx.a[st.sus];
     if(sv){let sk='off',q=null,op=1;
       if(S){const t=now-st.s0,step=spd(130),n=Math.floor(t/step);
         if(n<S.length){q=S[n];sk='a'+n}else if(t<step*S.length+spd(700)){q=S[S.length-1];sk='a'+(S.length-1)}else{q=S[S.length-2];sk='hold';op=.55}}
       sk=st.sus+sk;
-      if(sk!==st.skey){st.skey=sk;if(!q)sv.style.cssText='display:none';else{const A=SPR_AURA[st.sus];sprPaint(sv,d.fx.src,d.fx.W,d.fx.H,q[0],q[1],q[2],q[3],q[2]/2,q[3],k*A.sc);sv.style.opacity=op;sv.parentNode.style.setProperty('--ag',A.c)}}}
+      if(sk!==st.skey){st.skey=sk;if(!q)sv.style.cssText='display:none';else{const A=SPR_AURA[st.sus];sprPaint(sv,AD.fx.src,AD.fx.W,AD.fx.H,q[0],q[1],q[2],q[3],q[2]/2,q[3],SPR_H/AD.ref*A.sc);sv.style.opacity=op;sv.parentNode.style.setProperty('--ag',A.c)}}}
   });
 }
 // Efeito de habilidade tirado do atlas fx: toca os quadros com o pé em (x,y) (ou o centro, com o.center). Resolve no último quadro.
@@ -3417,6 +3646,64 @@ Object.assign(TECSND,{dragonmode:[['fire',0],['bolt',150]],dragonforce:[['power'
   marcha:[['rumble',0],['whoosh',150]],ti:[['shock',0]],imitacao:[['cast',0]]});
 Object.assign(CTSND,{contraagarrao:[['hit',100]],contrasherek:[['heal',0],['power',150]],shinokata:[['fire',0]],kataredir:[['whoosh',0]],adamantina:[['block',0]],
   maseshirudo:[['block',0]],chajiru:[['holy',0],['block',100]],piada:[['ui',0],['ui',120]]});
+// Sprites prontos (Shrek a João, 11/11/2026): efeitos das folhas no lugar dos comuns. Sem sprite, ficam os comuns.
+{const hitAt=(id,name,hk,o)=>(A,T)=>Promise.all(T.map(t=>sprFx(id,name,t.x,t.y,t.h*hk,Object.assign({center:1,ms:85,hold:200,fade:300,flip:A.x>t.x},o))));
+ const dashAt=(id,name,hk,o)=>async(A,T,e,tg)=>{await dashFx(e.s,e.c,tg[0]);await hitAt(id,name,hk,o)(A,T)};
+ const footAt=(id,name,hk,o)=>(A,T)=>Promise.all(T.map(t=>sprFx(id,name,t.x,footOf(t)+uU(t)*.6,t.h*hk,Object.assign({ms:100,hold:300,fade:350,flip:A.x>t.x},o))));
+ Object.assign(SKFX,{
+  investida:withSpr('shrek',dashAt('shrek','investida',.8),SKFX.investida),
+  urro:withSpr('shrek',async(A,T)=>{await sprBeam('shrek',A,T,'urro',.7,{off:.45,ms:85});T.forEach(t=>ring(t.x,t.y,t.w*.7,'#c8ff8a',450,1))},SKFX.urro),
+  punho:withSpr('itadori',dashAt('itadori','punho',.75),SKFX.punho),
+  desmontar:withSpr('itadori',hitAt('itadori','desmontar',.95,{ms:90,hold:250}),SKFX.desmontar),
+  fender:withSpr('itadori',async(A,T)=>{flash('#300008',.3,400);await hitAt('itadori','fender',1.15,{ms:90,hold:300})(A,T)},SKFX.fender),
+  shiranui:withSpr('rengoku',dashAt('rengoku','shiranui',.8),SKFX.shiranui),
+  enko:withSpr('rengoku',async(A,T,e,tg)=>{await dashFx(e.s,e.c,tg[0]);await footAt('rengoku','enko',1.2,{ms:90})(A,T)},SKFX.enko),
+  kunokata:withSpr('rengoku',async(A,T)=>{flash('#ff8a3d',.3,500);await sprBeam('rengoku',A,T,'kunokata',.95,{off:.5,ms:95,hold:300});T.forEach(t=>glow(t.x,t.y,t.w*.9,'#ff6a3d',500))},SKFX.kunokata),
+  corkscrew:withSpr('ippo',dashAt('ippo','corkscrew',.85),SKFX.corkscrew),
+  ganchos:withSpr('ippo',dashAt('ippo','ganchos',.85,{ms:90,hold:300}),SKFX.ganchos),
+  katachamas:withSpr('ohma',dashAt('ohma','katachamas',.75),SKFX.katachamas),
+  kataagua:withSpr('ohma',hitAt('ohma','kataagua',.9,{ms:100,hold:350}),SKFX.kataagua),
+  colher:withSpr('remy',dashAt('remy','colher',.65),SKFX.colher),
+  linguine:withSpr('remy',footAt('remy','linguine',.85,{ms:110,hold:350}),SKFX.linguine),
+  camera:withSpr('ayrton',async(A,T)=>{flash('#ffffff',.5,300);await hitAt('ayrton','camera',1.0,{ms:80,hold:200})(A,T)},SKFX.camera),
+  lapada:withSpr('ayrton',dashAt('ayrton','lapada',.75),SKFX.lapada),
+  saisu:withSpr('tia',async(A,T)=>{await sprBeam('tia',A,T,'saisu',.45,{off:.4,ms:75});T.forEach(t=>glow(t.x,t.y,t.w*.5,'#ff8fc8',400))},SKFX.saisu),
+  gigano:withSpr('tia',async(A,T)=>{await sprBeam('tia',A,T,'gigano',.85,{off:.45,ms:85});T.forEach(t=>glow(t.x,t.y,t.w*.8,'#ff8fc8',500))},SKFX.gigano),
+  corsa:withSpr('joao',async(A,T)=>{await sprBeam('joao',A,T,'corsa',.7,{off:.35,ms:110,hold:250});T.forEach(t=>parts(t.x,footOf(t),12,'#aaaaaa',{sp:t.w*.8,flat:1,sz:uU(t)}))},SKFX.corsa)
+ });
+ const T1=Object.assign({},TECFX),self=(id,name,hk,o)=>(P,e)=>sprFx(id,name,P.x,footOf(P)+uU(P)*.5,P.h*hk,Object.assign({ms:100,hold:300,fade:350,flip:faceDir(e)<0},o)),
+  front=(id,name,hk,o)=>(P,e)=>sprFx(id,name,P.x+faceDir(e)*P.w*.6,P.y,P.h*hk,Object.assign({center:1,ms:100,hold:350,fade:350,flip:faceDir(e)<0},o)),
+  aura=(id,fl)=>(P,e)=>{if(sprAuraOn(e,id)){if(fl)flash(fl,.3,450);return}T1[id](P,e)},
+  spr=(ch,fn,id)=>(P,e)=>{if(sprFxOk(ch)){fn(P,e);return}T1[id](P,e)};
+ Object.assign(TECFX,{
+  irritado:aura('irritado','#3a0000'),respiracao:aura('respiracao'),dempsey:aura('dempsey'),avancado:aura('avancado','#2a0000'),santoamaro:aura('santoamaro'),marcha:aura('marcha'),
+  sukuna:(P,e)=>{if(sprFormOn(e,'sukuna')){flash('#200005',.4,600);return}T1.sukuna(P,e)},
+  acordo:spr('shrek',(P,e)=>{flash('#fff3b0',.35,500);sprFx('shrek','acordo',P.x,P.y-P.h*.15,P.h*.8,{center:1,ms:110,hold:400,fade:350})},'acordo'),
+  beijar:spr('shrek',(P,e)=>{const h=headOf(P);sprFx('shrek','beijar',h.x,h.y-P.h*.2,P.h*.5,{center:1,ms:110,hold:350,fade:350})},'beijar'),
+  blackflash:spr('itadori',(P,e)=>{flash('#000000',.35,300);front('itadori','blackflash',.8)(P,e)},'blackflash'),
+  takameru:spr('ippo',self('ippo','takameru',1.0),'takameru'),
+  cabelo:spr('remy',front('remy','cabelo',.8),'cabelo'),
+  pelicula:spr('ayrton',(P,e)=>sprFx('ayrton','pelicula',P.x,P.y,P.h*.9,{center:1,ms:110,hold:350,fade:350,flip:faceDir(e)<0}),'pelicula'),
+  saifojio:spr('tia',self('tia','saifojio',1.0,{flip:0}),'saifojio'),
+  ti:spr('joao',front('joao','ti',.6),'ti'),
+  imitacao:spr('joao',(P,e)=>{const h=headOf(P);sprFx('joao','imitacao',h.x,h.y,P.h*.55,{center:1,ms:110,hold:350,fade:350,flip:faceDir(e)<0})},'imitacao')
+ });
+ const C1=Object.assign({},CTFX),cspr=(ch,fn,id)=>(P,e)=>{if(sprFxOk(ch)){fn(P,e);return}C1[id](P,e)};
+ Object.assign(CTFX,{
+  contraagarrao:cspr('shrek',front('shrek','contraagarrao',.8),'contraagarrao'),
+  contrasherek:cspr('shrek',(P,e)=>{flash('#ffd1ea',.3,450);self('shrek','volta',1.15)(P,e)},'contrasherek'),
+  shinokata:cspr('rengoku',front('rengoku','shinokata',.85),'shinokata'),
+  kataredir:cspr('ohma',front('ohma','kataredir',.7),'kataredir'),
+  adamantina:cspr('ohma',self('ohma','adamantina',1.05,{flip:0}),'adamantina'),
+  maseshirudo:cspr('tia',front('tia','maseshirudo',.75),'maseshirudo'),
+  chajiru:cspr('tia',(P,e)=>sprFx('tia','chajiru',P.x,P.y,P.h*1.1,{center:1,ms:110,hold:400,fade:350}),'maseshirudo'),
+  piada:cspr('joao',(P,e)=>{const h=headOf(P);sprFx('joao','piada',h.x+faceDir(e)*P.w*.5,h.y-P.h*.15,P.h*.45,{center:1,ms:130,hold:400,fade:300})},'piada')
+ });
+ Object.assign(SPR_AURA,{irritado:{sc:1.2,c:'#ff4d6a'},respiracao:{sc:1.3,c:'#ff8a3d'},dempsey:{sc:1.25,c:'#c8d8ff'},avancado:{sc:1.25,c:'#ff3b3b'},santoamaro:{sc:1.3,c:'#9a9a9a'},marcha:{sc:1.3,c:'#c0c0c0'}});
+ Object.assign(SPR_FORMC,{sukuna:'#ff2a4a'});
+ Object.assign(SPR_POSE,{investida:'attack',urro:'jutsu',punho:'attack',shiranui:'attack',enko:'attack',corkscrew:'attack',ganchos:'attack',katachamas:'attack',colher:'attack',lapada:'attack',saisu:'attack',gigano:'attack',corsa:'jutsu',camera:'jutsu'});
+ SPRITES.sherek=SPRITES.shrek;
+}
 const skByName=(s,c,name,kind)=>{const d=RBY[cid(s,c)];return d&&d.sk.find(k=>k.n===name&&(!kind||k.kind===kind))};
 function nameFx(e,kind,tab){if(reduceMotion)return false;const sk=skByName(e.s,e.c,e.name,kind),P=uBox(e.s,e.c);if(!sk||!P||!tab[sk.id])return false;tab[sk.id](P,e);return true}
 
@@ -3445,6 +3732,7 @@ function msgFx(e){
     case 'elec':popFx(e.s,e.c,'bolt','#ffe14d');break;
     case 'invuln':case 'invul':popFx(e.s,e.c,'shield','#ffd34d');break;
     case 'immune':popFx(e.s,e.c,'shield','#7fe7ff');break;
+    case 'lepto':{const P=uBox(e.s,e.c);if(P&&sprFxOk('remy')&&!reduceMotion){const h=headOf(P);sprFx('remy','leptospirose',h.x,h.y-P.h*.1,P.h*.5,{center:1,ms:110,hold:350,fade:350})}sfx('dark');break}
     case 'rampup':{const P=uBox(e.s,e.c);if(P&&!reduceMotion){glow(P.x,P.y,P.w*(e.x>2?1.1:.8),'#ffb347',700);parts(P.x,footOf(P),12,'#ffe9a0',{sp:P.w*.4,up:P.h,sz:uU(P),x0:P.w*.4})}sfx('power');break}
     case 'swap':{if(!reduceMotion)[e.a,e.b].forEach(p=>{const P=uBox(p[0],p[1]);if(P&&sprFxOk('shaka')){sprFx('shaka','circulo',P.x,P.y,P.h*.9,{center:1,ms:110,hold:350,fade:350});return}if(P){ring(P.x,P.y,P.w*.9,'#ffd34d',800,1);glow(P.x,P.y,P.w*.7,'#fff3b0',700)}});flash('#fff3b0',.25,500);sfx('holy');break}
     case 'transform':{const P=uBox(e.s,e.c);flash('#ffffff',.5,600);if(P&&!reduceMotion){parts(P.x,P.y,22,'#ffffff',{sp:P.w*.9,sz:uU(P),round:1,op:.8})}sfx('self');break}
@@ -3515,6 +3803,7 @@ function msgText(e){
     case 'genki':return `A ${e.name} de ${cname(e.s,e.c)} está pronta e cai em ${cname(e.ts,e.tc)}!`;
     case 'genkilost':return `O alvo da ${e.name} caiu antes, e a energia se perdeu.`;
     case 'nocounter':return `${cname(e.s,e.c)} está suscetível e não pode usar counter por um tempo!`;
+    case 'lepto':{const P=uBox(e.s,e.c);if(P&&sprFxOk('remy')&&!reduceMotion){const h=headOf(P);sprFx('remy','leptospirose',h.x,h.y-P.h*.1,P.h*.5,{center:1,ms:110,hold:350,fade:350})}sfx('dark');break}
     case 'rampup':return `O ${e.name} de ${cname(e.s,e.c)} ficou mais forte: dano x${e.x}!`;
     case 'swap':return `${cname(e.a[0],e.a[1])} e ${cname(e.b[0],e.b[1])} trocaram de vida: agora ${e.hb} e ${e.ha}!`;
     case 'transform':return `${RBY[e.from].n} virou ${RBY[e.to].n}!`;
