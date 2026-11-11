@@ -1759,7 +1759,7 @@ function fighter(color,mark,face){
   return `<svg viewBox="-10 -16 140 176" aria-hidden="true" focusable="false">${t}${g}</g>${label}</svg>`;
 }
 /* ---------- ícones dos personagens (img/icones). O desenho antigo fica por baixo e aparece se a imagem não carregar. ---------- */
-const ICON_FILE={itachi:'001-itachi',meliodas:'002-meliodas',law:'003-law',kurapika:'004-kurapica',gash:'005-gash-bell',youngaang:'006-young-aang',shiryu:'007-shiryu',luffy:'008-luffy',hashirama:'009-hashirama',brago:'010-brago',aang:'011-aang',shun:'012-shun',escanor:'013-escanor',gon:'014-gon',mu:'015-mu',shaka:'016-shaka',allmight:'017-all-might',kame:'018-mestre-kame',toshinori:'toshinori',kratos:'019-kratos',dracula:'020-dracula',doflamingo:'021-doflamingo',chopper:'022-chopper',goku:'023-goku',geralt:'024-geralt',natsu:'025-natsu',lucy:'026-lucy',shangtsung:'027-shang-tsung',scorpion:'028-scorpion',shrek:'029-shrek',sherek:'029-shrek',itadori:'030-itadori',rengoku:'031-rengoku',ippo:'032-ippo',ohma:'033-ohma',remy:'034-remy',ayrton:'035-ayrton',tia:'036-tia',joao:'037-joao'};
+const ICON_FILE={itachi:'001-itachi',meliodas:'002-meliodas',law:'003-law',kurapika:'004-kurapica',gash:'005-gash-bell',youngaang:'006-young-aang',shiryu:'007-shiryu',luffy:'008-luffy',hashirama:'009-hashirama',brago:'010-brago',aang:'011-aang',shun:'012-shun',escanor:'013-escanor',gon:'014-gon',mu:'015-mu',shaka:'016-shaka',allmight:'017-all-might',kame:'018-mestre-kame',toshinori:'toshinori',kratos:'019-kratos',dracula:'020-dracula',doflamingo:'021-doflamingo',chopper:'022-chopper',goku:'023-goku',geralt:'024-geralt',natsu:'025-natsu',lucy:'026-lucy',shangtsung:'027-shang-tsung',scorpion:'028-scorpion',shrek:'029-shrek',sherek:'029-sherek',itadori:'030-itadori',rengoku:'031-rengoku',ippo:'032-ippo',ohma:'033-ohma',remy:'034-remy',ayrton:'035-ayrton',tia:'036-tia',joao:'037-joao'};
 const iconUrl=id=>ICON_FILE[id]?`img/icones/${ICON_FILE[id]}.jpg`:'';
 /* Sprites animados da arena (img/sprites/NNN-nome.png, recortados das folhas em "Sprites"). Cada quadro: [x,y,w,h,ax,ay] no atlas,
    com (ax,ay) = ponto do pé. ref = altura do quadro parado. fx = atlas dos efeitos das habilidades ([x,y,w,h], pé no meio de baixo).
@@ -2081,13 +2081,13 @@ function recordResult(w){
   if(UNLOCKS&&M.mode==='online')unlockGame(p); // treino não conta
   saveProf(p);
 }
-/* ---------- desbloqueio de personagens (pronto, mas desligado: UNLOCKS=false) ----------
+/* ---------- desbloqueio de personagens (ligado desde 10/11/2026) ----------
    Começam liberados os de 1★ e 2★, e quem cria a conta ganha 2 escolhas de qualquer estrela (pend[0]; vale também pra perfil
    que já existia quando o desbloqueio for ligado). Cada partida online terminada (vitória ou derrota; treino e quem só assiste
    não contam) dá 1 escolha, alternando 3★, 4★ e 5★ (ver unlockGame). As escolhas ficam guardadas até usar.
    Fica no perfil (mv:prof.ul = {g: partidas contadas, ids: [liberados], pend: {0: qualquer estrela, 3:n, 4:n, 5:n}}); depois pode ir pro Supabase.
    Só valem pra montagem do seu time: o computador e os outros jogadores usam qualquer um. Personagem "em breve" não entra na escolha. */
-const UNLOCKS=false,UL_START=2;
+const UNLOCKS=true,UL_START=2;
 const ulOf=p=>{const has=p&&p.ul&&typeof p.ul==='object',u=has?p.ul:{};return {g:+u.g||0,ids:Array.isArray(u.ids)?u.ids.filter(id=>RBY[id]):[],pend:Object.assign({0:has?0:UL_START,3:0,4:0,5:0},u.pend)}};
 const ulFree=id=>(RBY[id].stars||0)<=2;
 function isLocked(id){if(!UNLOCKS||!RBY[id]||ulFree(id))return false;const p=getProf();return !ulOf(p).ids.includes(id)}
@@ -2123,7 +2123,7 @@ function showProfile(first){
   const line=(t,s)=>`<div class="pf-row"><b>${t}</b><span>${plural(s.w,'vitória','vitórias')} em ${plural(s.g,'partida','partidas')}</span></div>`;
   ov.innerHTML=`<div class="mn-box pf-box"><h2>${first?'Crie seu perfil':'Seu perfil'}</h2>${first?'<p>Escolha como os outros vão te ver. Fica salvo neste aparelho, ou na sua conta se você entrar lá embaixo.</p>':''}
     <label class="pf-lab">Apelido<input id="pfnick" maxlength="16" autocomplete="nickname" placeholder="Como os outros vão te ver" value="${esc(p.nick)}"></label>
-    <div class="pf-lab">Foto</div><div class="pf-grid" role="group" aria-label="Foto do perfil">${CHARS.filter(c=>!c.hidden).map(c=>`<button class="pf-pick" data-av="${esc(c.i)}" aria-pressed="${c.i===av}" aria-label="${esc(c.n)}" title="${esc(c.n)}">${profAvatar(c.i,'pf-pic')}</button>`).join('')}</div>
+    <div class="pf-lab">Foto</div><div class="pf-grid" role="group" aria-label="Foto do perfil">${CHARS.filter(c=>!c.hidden||iconUrl(c.i)).map(c=>`<button class="pf-pick" data-av="${esc(c.i)}" aria-pressed="${c.i===av}" aria-label="${esc(c.n)}" title="${esc(c.n)}">${profAvatar(c.i,'pf-pic')}</button>`).join('')}</div>
     ${first?'':`<div class="pf-stats">${line('Online',p.st.on)}${line('Treino',p.st.cpu)}</div>`}
     <p class="err" id="pferr" role="alert"></p>
     <div class="pf-btns">${first?'':'<button class="btn" id="pfcancel">Cancelar</button>'}<button class="btn primary" id="pfsave">Salvar</button></div>
