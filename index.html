@@ -658,8 +658,8 @@ const CHARS=[
       d:'Limpa os efeitos negativos do Aang e deixa ele imune a novos enquanto durar. Todo dano que ele causa dobra. Dura 2 turnos. Quando acaba, Aang fica 2 turnos sem agir.'},
     {id:'agua',n:'Água',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
       d:'Causa 100 de dano.'},
-    {id:'terra',n:'Terra',kind:'counter',tags:[],tg:'self',counter:1,cmode:'thorns',cdmg:50,charges:1,
-      d:'Quando o Aang é atacado, bloqueia o ataque e causa 50 de dano em quem atacou.'},
+    {id:'terra',n:'Terra',kind:'counter',tags:[],tg:'self',counter:1,cmode:'thorns',cdmg:50,physOnly:1,charges:1,
+      d:'Quando o Aang é atacado por um ataque físico, bloqueia o ataque e causa 50 de dano em quem atacou. Não funciona contra ataques mágicos.'},
     {id:'fogo',n:'Fogo',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:75,dot:{dmg:75,turns:1},
       d:'Causa 75 de dano na hora e mais 75 no próximo turno.'},
     {id:'ar',n:'Ar',kind:'counter',tags:[],tg:'self',counter:1,cmode:'steal',charges:1,
@@ -925,8 +925,8 @@ const CHARS=[
   {i:'shrek',grp:'shrek',n:'Shrek',u:'Shrek',stars:3,hp:HP_BASE,sk:[
     {id:'investida',n:'Investida',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:120,
       d:'Causa 120 de dano.'},
-    {id:'contraagarrao',n:'Contra-agarrão',kind:'counter',tags:[],tg:'self',counter:1,cmode:'thorns',cdmg:120,charges:1,
-      d:'Quando Shrek é atacado, bloqueia o ataque e causa 120 de dano em quem atacou.'},
+    {id:'contraagarrao',n:'Contra-agarrão',kind:'counter',tags:[],tg:'self',counter:1,cmode:'thorns',cdmg:120,physOnly:1,charges:1,
+      d:'Quando Shrek é atacado por um ataque físico, bloqueia o ataque e causa 120 de dano em quem atacou. Não funciona contra ataques mágicos.'},
     {id:'irritado',n:'Irritado',kind:'tecnica',tags:[],tg:'self',buff:{turns:3,dmgMult:3},hpBelow:600,
       d:'Todo dano que Shrek causa triplica por 3 turnos. Só com menos de 600 de vida.'},
     {id:'urro',n:'Urro',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:50,stun:5,alsoTech:1,charges:1,req:'irritado',addCharge:'contraagarrao',
@@ -977,14 +977,14 @@ const CHARS=[
       d:'Passiva, sempre ligada: Ohma leva 50 a menos de todo dano que vem de inimigo.'},
     {id:'avancado',n:'Avançado',kind:'tecnica',tags:[],tg:'self',buff:{turns:3,dmgMult:2},fatal2nd:1,
       d:'Todo dano que Ohma causa dobra por 3 turnos. Se for a segunda vez que ele usa, quando acabar, ele cai.'},
-    {id:'kataredir',n:'Kata de Redirecionamento',short:'Redirecionamento',kind:'counter',tags:[],tg:'self',counter:1,cmode:'redirect',cd:5,noWith:'avancado',
-      d:'Quando Ohma é atacado, bloqueia e joga o dano do ataque em qualquer inimigo à escolha. Não dá pra usar com o Avançado ativo. Depois de usar, fica 5 turnos sem poder ser usado de novo.'},
+    {id:'kataredir',n:'Kata de Redirecionamento',short:'Redirecionamento',kind:'counter',tags:[],tg:'self',counter:1,cmode:'redirect',physOnly:1,cd:5,noWith:'avancado',
+      d:'Quando Ohma é atacado por um ataque físico, bloqueia e joga o dano do ataque em qualquer inimigo à escolha. Não funciona contra ataques mágicos. Não dá pra usar com o Avançado ativo. Depois de usar, fica 5 turnos sem poder ser usado de novo.'},
     {id:'katachamas',n:'Kata das Chamas',short:'Chamas',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:2,dmg:150,cd:10,
       d:'Causa 150 de dano em até 2 inimigos. Depois de usar, fica 10 turnos sem poder ser usado de novo.'},
     {id:'kataagua',n:'Kata da Água',short:'Água',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,bankou:{lock:2,cdAfter:5},
       d:'Prende 1 inimigo e o Ohma, sem prazo. Ninguém sai nos 2 primeiros turnos de cada um; depois, qualquer um dos dois pode se soltar. Quando a prisão acaba, fica 5 turnos sem poder ser usada de novo.'},
-    {id:'adamantina',n:'Kata Adamantina',short:'Adamantina',kind:'counter',tags:[],tg:'self',counter:1,cmode:'revenge',cmul:2,charges:2,fatalWith:'avancado',
-      d:'Quando Ohma é atacado, leva o dano e devolve o dobro a quem atacou. Se usar com o Avançado ativo, ele cai logo depois.'}
+    {id:'adamantina',n:'Kata Adamantina',short:'Adamantina',kind:'counter',tags:[],tg:'self',counter:1,cmode:'revenge',cmul:2,physOnly:1,charges:2,fatalWith:'avancado',
+      d:'Quando Ohma é atacado por um ataque físico, leva o dano e devolve o dobro a quem atacou. Não funciona contra ataques mágicos. Se usar com o Avançado ativo, ele cai logo depois.'}
   ]},
   {i:'remy',n:'Remy',u:'Ratatouille',stars:1,hp:HP_BASE,contagion:{dmg:100,turns:3},sk:[
     {id:'colher',n:'Colher de Pau',short:'Colher',kind:'ataque',tags:['fisica'],tg:'enemy',maxT:1,dmg:100,
@@ -1884,9 +1884,9 @@ const SPRITES={
     forms:{
     gear2:{src:'img/sprites/008-luffy-g2.png',W:981,H:1042,ref:138,a:{idle:[[0,0,114,141,51.4,141],[116,0,116,144,51.8,144],[234,0,117,143,52.1,143],[353,0,112,143,48.8,143]],trans:[[0,146,77,138,37.5,139],[79,146,101,131,48.8,131],[182,146,110,138,49.5,138],[294,146,130,135,61.3,135],[426,146,132,153,59.9,153]],attack:[[0,301,129,135,51.9,135],[131,301,158,133,56.3,133],[291,301,163,139,51.8,139],[456,301,164,144,48.2,144],[622,301,182,137,67,137],[806,301,173,134,52.7,134]],guard:[[0,447,118,144,53.1,144],[120,447,123,146,55.1,146]],hurt:[[0,595,113,146,42,146],[115,595,100,149,42.8,149],[217,595,99,154,41.2,154],[318,595,106,144,47.3,144]],low:[[0,751,118,133,54.4,133],[120,751,119,124,48.1,124],[241,751,119,133,47.9,133]],stun:[[0,886,129,148,59.9,148],[131,886,131,154,62.4,154],[264,886,119,154,56.4,155]]},
     fx:{src:'img/sprites/008-luffy-g2-fx.png',W:776,H:164,a:{aura:[[0,0,223,113],[225,0,262,132],[489,0,285,162]]}}},
-    gear4:{src:'img/sprites/008-luffy-g4.png',W:1047,H:1154,ref:112,a:{idle:[[0,0,148,153,78.1,153],[150,0,147,153,77.5,153],[299,0,148,161,77.8,161],[449,0,147,161,77.3,161]],trans:[[0,163,87,93,37.3,94],[89,163,131,127,48.2,128],[222,163,140,147,63,147],[364,163,188,192,92,192],[554,163,211,182,105.2,182]],attack:[[0,357,142,148,1.2,148],[144,357,142,144,61.4,152],[288,357,167,144,57.9,152],[457,357,167,154,61.1,162],[626,357,210,154,64,162],[838,357,207,164,106.8,164]],guard:[[0,523,179,149,99.5,149],[181,523,180,149,99.5,149]],hurt:[[0,674,125,165,1.2,165],[127,674,125,153,72.3,162],[254,674,116,150,59.3,159],[372,674,116,159,113.4,159]],low:[[0,841,130,153,62.9,154],[132,841,129,146,60.1,146],[263,841,138,143,65.9,143]],stun:[[0,996,139,153,72.8,154],[141,996,140,156,73.4,156],[283,996,139,156,72.2,157]]},
+    gear4:{src:'img/sprites/008-luffy-g4.png',W:1047,H:1154,ref:112,a:{idle:[[0,0,148,153,78.1,153],[150,0,147,153,77.5,153],[299,0,148,161,77.8,161],[449,0,147,161,77.3,161]],trans:[[0,163,87,93,37.3,94],[89,163,131,127,48.2,128],[222,163,140,147,63,147],[364,163,188,192,92,192],[554,163,211,182,105.2,182]],attack:[[0,357,142,148,65.8,148],[144,357,142,144,61.4,152],[288,357,167,144,57.9,152],[457,357,167,154,61.1,162],[626,357,210,154,64,162],[838,357,207,164,106.8,164]],guard:[[0,523,179,149,99.5,149],[181,523,180,149,99.5,149]],hurt:[[0,674,125,165,74,165],[127,674,125,153,72.3,162],[254,674,116,150,59.3,159],[372,674,116,159,58.1,159]],low:[[0,841,130,153,62.9,154],[132,841,129,146,60.1,146],[263,841,138,143,65.9,143]],stun:[[0,996,139,153,72.8,154],[141,996,140,156,73.4,156],[283,996,139,156,72.2,157]]},
     fx:{src:'img/sprites/008-luffy-g4-fx.png',W:1024,H:176,a:{aura:[[0,0,269,130],[271,0,341,158],[614,0,408,174]]}}},
-    gear5:{src:'img/sprites/008-luffy-g5.png',W:1021,H:1127,ref:115,a:{idle:[[0,0,127,153,69,153],[129,0,127,163,66.4,163],[258,0,128,165,70.1,165],[388,0,126,164,69.2,164]],trans:[[0,167,93,96,39.7,97],[95,167,132,123,49.7,123],[229,167,139,142,56.7,142],[370,167,169,160,76.2,160],[541,167,186,181,93,181]],attack:[[0,350,137,152,32.5,152],[139,350,131,145,57.6,152],[272,350,161,151,56.7,158],[435,350,163,154,59.2,161],[600,350,200,155,62.8,162],[802,350,217,160,107.5,160]],guard:[[0,512,156,149,84.7,149],[158,512,155,149,80.6,149]],hurt:[[0,663,119,165,1.2,165],[121,663,106,153,65.8,162],[229,663,121,150,58.5,159],[352,663,127,157,124.7,157]],low:[[0,830,135,131,64.3,131],[137,830,133,127,58.3,127],[272,830,133,124,58.6,124]],stun:[[0,963,145,162,1.6,162],[147,963,140,157,69.4,164],[289,963,141,158,73.9,165]]},
+    gear5:{src:'img/sprites/008-luffy-g5.png',W:1021,H:1127,ref:115,a:{idle:[[0,0,127,153,69,153],[129,0,127,163,66.4,163],[258,0,128,165,70.1,165],[388,0,126,164,69.2,164]],trans:[[0,167,93,96,39.7,97],[95,167,132,123,49.7,123],[229,167,139,142,56.7,142],[370,167,169,160,76.2,160],[541,167,186,181,93,181]],attack:[[0,350,137,152,32.5,152],[139,350,131,145,57.6,152],[272,350,161,151,56.7,158],[435,350,163,154,59.2,161],[600,350,200,155,62.8,162],[802,350,217,160,107.5,160]],guard:[[0,512,156,149,84.7,149],[158,512,155,149,80.6,149]],hurt:[[0,663,119,165,73.1,165],[121,663,106,153,65.8,162],[229,663,121,150,58.5,159],[352,663,127,157,58.8,157]],low:[[0,830,135,131,64.3,131],[137,830,133,127,58.3,127],[272,830,133,124,58.6,124]],stun:[[0,963,145,162,74.6,162],[147,963,140,157,69.4,164],[289,963,141,158,73.9,165]]},
     fx:{src:'img/sprites/008-luffy-g5-fx.png',W:1077,H:176,a:{aura:[[0,0,282,120],[284,0,356,171],[642,0,433,174]]}}}}},
   hashirama:{src:'img/sprites/009-hashirama.png',W:698,H:946,ref:112,a:{idle:[[0,0,69,112,38.7,112],[71,0,69,111,39.3,111],[142,0,70,112,40.1,112],[214,0,72,112,41.9,112]],low:[[0,114,69,101,30.2,101],[71,114,73,96,30.8,96],[146,114,73,95,30.2,95]],guard:[[0,217,72,107,35.8,107],[74,217,68,107,31.5,107]],stun:[[0,326,77,110,33.2,111],[79,326,79,111,32.6,111],[160,326,76,110,32.1,111]],attack:[[0,439,68,99,39.5,99],[70,439,82,99,40.4,99],[154,439,87,99,38.3,99],[243,439,74,100,36,100],[319,439,99,99,37.9,99],[420,439,72,102,32.9,102],[494,439,157,114,60.4,114]],jutsu:[[0,555,62,91,37.1,91],[64,555,89,91,45.7,91],[155,555,95,101,52.3,101],[252,555,93,99,48.8,99],[347,555,92,117,53.6,117],[441,555,95,104,56.1,104],[538,555,158,126,74.1,126]],hurt:[[0,683,65,96,36.8,96],[67,683,68,96,37.5,96],[137,683,63,94,33.5,94],[202,683,117,93,32.6,93]],faint:[[0,781,98,62,50.4,62],[100,781,99,48,53.1,48],[201,781,104,51,56.8,51],[307,781,105,49,56.7,49]],victory:[[0,845,65,99,38.2,99],[67,845,63,99,35.5,99],[132,845,65,99,37.1,99],[199,845,62,99,34.7,99],[263,845,60,99,32.3,99],[325,845,61,99,32.7,99]]},
     fx:{src:'img/sprites/009-hashirama-fx.png',W:312,H:1085,a:{sabio:[[0,0,58,203],[60,0,58,189],[120,0,58,177]],rashomon:[[0,205,257,218]],kajukai:[[0,425,267,218]],mokuryu:[[0,645,310,218]],mokujin:[[0,865,271,218]]}}},
@@ -3299,7 +3299,8 @@ function sprAuraOn(e,id){const el=e&&$(`#fs-${e.s}-${e.c}`),d=el&&SPRITES[el.dat
 const sprOk=id=>!!(SPRITES[id]&&!sprBad[id]);
 const sprFxOk=id=>sprOk(id)&&SPRITES[id].fx&&!SPRITES[id].fx.bad;
 function sprLoad(){Object.keys(SPRITES).forEach(id=>{const d=SPRITES[id];if(d.img)return;
-  d.img=new Image();d.img.onerror=()=>{sprBad[id]=1;document.querySelectorAll(`.b-unit.has-sa[data-id="${id}"]`).forEach(el=>el.classList.remove('has-sa'))};d.img.src=d.src;
+  // Se a imagem não carregar, todos os ids que usam este mesmo atlas (Shrek e Sherek) voltam pro ícone.
+  d.img=new Image();d.img.onerror=()=>{Object.keys(SPRITES).filter(k=>SPRITES[k]===d).forEach(k=>{sprBad[k]=1;document.querySelectorAll(`.b-unit.has-sa[data-id="${k}"]`).forEach(el=>el.classList.remove('has-sa'))})};d.img.src=d.src;
   if(d.fx){d.fx.img=new Image();d.fx.img.onerror=()=>{d.fx.bad=1};d.fx.img.src=d.fx.src}
   // Formas: carrega antes pra transformação não piscar; se não carregar, fica no visual normal.
   if(d.forms)Object.keys(d.forms).forEach(k=>{const F=d.forms[k];F.img=new Image();F.img.onerror=()=>{delete d.forms[k]};F.img.src=F.src;if(F.fx){F.fx.img=new Image();F.fx.img.src=F.fx.src}})})}
