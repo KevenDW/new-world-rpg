@@ -195,6 +195,9 @@ body.menu-on .wrap{max-width:none;padding:0}
 .pf-row{display:flex;justify-content:space-between;gap:12px}
 .pf-row b{color:#F7D774}
 .pf-btns{display:flex;justify-content:flex-end;gap:10px}
+.pf-acct{display:flex;flex-direction:column;gap:8px;padding:10px 12px;background:rgba(0,0,0,.25);border:2px solid #3a3170;border-radius:10px}
+.pf-acct .pf-row{align-items:center;flex-wrap:wrap}
+.pf-acct .err{min-height:0}
 .mn-ov{position:absolute;inset:0;z-index:5;display:grid;place-items:center;padding:16px;background:rgba(5,4,11,.72)}
 .mn-ov[hidden]{display:none}
 .mn-box{width:min(100%,680px);max-height:100%;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:20px 24px;background:linear-gradient(#1a1535,#0e0b20);border:3px solid #F2C14E;border-radius:14px;color:#EDE7FF;font-size:15.5px}
@@ -1988,7 +1991,85 @@ function getProf(){
   if(p&&typeof p==='object'&&p.nick)return {nick:String(p.nick),av:RBY[p.av]?p.av:'',st:{on:Object.assign({w:0,g:0},p.st&&p.st.on),cpu:Object.assign({w:0,g:0},p.st&&p.st.cpu)},done:Array.isArray(p.done)?p.done:[],...(p.ul?{ul:p.ul}:{})};
   return null;
 }
-function saveProf(p){store.set('mv:prof',p);store.set('mv:nick',p.nick)}
+function saveProf(p,noPush){store.set('mv:prof',p);store.set('mv:nick',p.nick);if(!noPush)sbPush()}
+/* ---------- contas (Supabase) ----------
+   Opcional: sem conta, o perfil fica só no aparelho, como antes. Com conta (e-mail e senha), o perfil (apelido, foto, vitórias,
+   partidas e desbloqueios) fica salvo na tabela "perfis" (ver ferramentas/supabase/perfis.sql) e vale em qualquer aparelho.
+   A chave abaixo é a pública (publishable): ela vai no site mesmo. A biblioteca vem do jsDelivr, só quando precisa. */
+const SB={url:'https://efrswtvfzbjhyavzkpml.supabase.co',key:'sb_publishable_ju6xszi_TrKGJGTucFTTDg_x3cg6eLu',
+  lib:'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js',cli:null,user:null,loading:null,pushT:0,err:''};
+function sbLoad(){
+  if(SB.loading)return SB.loading;
+  SB.loading=new Promise(res=>{
+    const done=()=>{try{SB.cli=window.supabase.createClient(SB.url,SB.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+      SB.cli.auth.onAuthStateChange((ev,s)=>{const was=SB.user&&SB.user.id;SB.user=s&&s.user||null;if(SB.user&&SB.user.id!==was)sbPull();sbRefreshUI()});
+      SB.cli.auth.getSession().then(r=>{SB.user=r.data&&r.data.session?r.data.session.user:null;if(SB.user)sbPull();res(true)}).catch(()=>res(false))}catch(e){res(false)}};
+    if(window.supabase&&window.supabase.createClient)return done();
+    const s=document.createElement('script');s.src=SB.lib;s.async=true;s.onload=done;s.onerror=()=>res(false);document.head.appendChild(s);
+  });
+  return SB.loading;
+}
+// Junta o perfil da conta com o do aparelho: apelido, foto e desbloqueios da conta valem; vitórias e partidas ficam com o maior número.
+function sbMerge(loc,rem){
+  const st={};for(const k of ['on','cpu']){const a=(loc&&loc.st&&loc.st[k])||{},b=(rem.st&&rem.st[k])||{};st[k]={w:Math.max(+a.w||0,+b.w||0),g:Math.max(+a.g||0,+b.g||0)}}
+  const done=[...new Set([...(rem.done||[]),...((loc&&loc.done)||[])])].slice(-30);
+  const p={nick:rem.nick||(loc&&loc.nick)||'',av:rem.av||(loc&&loc.av)||'',st,done};
+  const ul=rem.ul||(loc&&loc.ul);if(ul)p.ul=ul;
+  return p;
+}
+async function sbPull(){
+  if(!SB.cli||!SB.user)return;
+  const {data,error}=await SB.cli.from('perfis').select('nick,av,st,done,ul').eq('id',SB.user.id).maybeSingle();
+  if(error){SB.err='Não deu pra ler o perfil da conta.';sbRefreshUI();return}
+  const loc=getProf();
+  if(data){const p=sbMerge(loc,data);if(p.nick){saveProf(p,true);sbPush()}}
+  else if(loc)sbPush(true);
+  sbRefreshUI();
+}
+function sbPush(now){
+  if(!SB.cli||!SB.user)return;
+  clearTimeout(SB.pushT);
+  SB.pushT=setTimeout(async()=>{const p=getProf();if(!p||!SB.user)return;
+    const {error}=await SB.cli.from('perfis').upsert({id:SB.user.id,nick:p.nick,av:p.av||'',st:p.st,done:p.done||[],ul:p.ul||null,updated_at:new Date().toISOString()});
+    SB.err=error?'Não deu pra salvar na conta agora. Fica salvo no aparelho e tenta de novo depois.':'';},now?0:800);
+}
+// Atualiza o quadro do perfil no menu e a parte da conta na janela do perfil, se estiverem abertos.
+function sbRefreshUI(){
+  const c=$('#goProf');if(c&&app.screen==='home'){c.outerHTML=profCardHTML();const n=$('#goProf');if(n)n.onclick=()=>showProfile(!getProf())}
+  const a=$('#pfacct');if(a)a.innerHTML=acctHTML();bindAcct();
+  // Entrou na conta com a janela de criar perfil aberta: preenche com o perfil da conta.
+  const ni=$('#pfnick'),p=getProf();if(ni&&!ni.value&&p){ni.value=p.nick;const b=document.querySelector(`[data-av="${p.av}"]`);if(b)b.click()}
+}
+const sbMsg=e=>{const m=String(e&&e.message||e||'');
+  if(/Invalid login/i.test(m))return 'E-mail ou senha errados.';
+  if(/already registered|already exists/i.test(m))return 'Esse e-mail já tem conta. Use Entrar.';
+  if(/Email not confirmed/i.test(m))return 'Falta confirmar o e-mail: abra o link que chegou na sua caixa de entrada.';
+  if(/at least 6|Password should/i.test(m))return 'A senha precisa ter pelo menos 6 caracteres.';
+  if(/valid email|invalid format|Unable to validate email/i.test(m))return 'Esse e-mail não parece certo.';
+  if(/rate limit|too many/i.test(m))return 'Muitas tentativas. Espere um pouco e tente de novo.';
+  return 'Não deu certo agora. Confira a internet e tente de novo.'};
+function acctHTML(){
+  if(!SB.cli)return `<p class="hint">${SB.loading?'Conectando…':'Sem conexão com o servidor de contas. O perfil fica salvo neste aparelho.'}</p>`;
+  if(SB.user)return `<div class="pf-row"><span>Conectado como <b>${esc(SB.user.email||'')}</b></span><button class="btn sm" id="acout">Sair da conta</button></div><p class="hint">Seu perfil fica salvo na conta e vale em qualquer aparelho.</p>${SB.err?`<p class="err">${esc(SB.err)}</p>`:''}`;
+  return `<p class="hint">Opcional: com uma conta, seu perfil vale em qualquer aparelho.</p>
+    <label class="pf-lab">E-mail<input id="acmail" type="email" autocomplete="email" placeholder="voce@email.com"></label>
+    <label class="pf-lab">Senha<input id="acpass" type="password" autocomplete="current-password" placeholder="Pelo menos 6 caracteres"></label>
+    <p class="err" id="acerr" role="alert"></p>
+    <div class="pf-btns"><button class="btn" id="acnew">Criar conta</button><button class="btn primary" id="acin">Entrar</button></div>`;
+}
+function bindAcct(){
+  const out=$('#acout');if(out)out.onclick=async()=>{await SB.cli.auth.signOut();SB.user=null;sbRefreshUI()};
+  const go=async up=>{const m=($('#acmail').value||'').trim(),pw=$('#acpass').value||'',er=$('#acerr');
+    if(!m||!pw){er.textContent='Preencha o e-mail e a senha.';return}
+    er.textContent=up?'Criando conta…':'Entrando…';
+    const r=up?await SB.cli.auth.signUp({email:m,password:pw,options:{emailRedirectTo:location.origin+location.pathname}}):await SB.cli.auth.signInWithPassword({email:m,password:pw});
+    if(r.error){er.textContent=sbMsg(r.error);return}
+    if(up&&!r.data.session){er.textContent='Conta criada! Abra o link que chegou no seu e-mail pra confirmar, e depois entre aqui.';return}
+    er.textContent='';};
+  const i=$('#acin');if(i)i.onclick=()=>go(false);
+  const n=$('#acnew');if(n)n.onclick=()=>go(true);
+  const pw=$('#acpass');if(pw)pw.onkeydown=e=>{if(e.key==='Enter')go(false)};
+}
 const myNick=()=>{const p=getProf();return p?p.nick:(store.get('mv:nick')||'')};
 // Conta a partida no perfil uma vez só (recarregar a página no meio não conta de novo).
 function recordResult(w){
@@ -1997,31 +2078,35 @@ function recordResult(w){
   const key=String(M.seed)+'|'+(M.game||0);if(p.done.includes(key))return;
   const st=M.mode==='online'?p.st.on:p.st.cpu;st.g++;if(w===M.mySide)st.w++;
   p.done=p.done.concat(key).slice(-30);
-  if(UNLOCKS)unlockGame(p);
+  if(UNLOCKS&&M.mode==='online')unlockGame(p); // treino não conta
   saveProf(p);
 }
 /* ---------- desbloqueio de personagens (pronto, mas desligado: UNLOCKS=false) ----------
-   Começam liberados os de 1★ e 2★. A cada partida terminada (online ou treino, vitória ou derrota; quem só assiste não conta)
-   ganha 1 escolha de 3★; a cada 2 partidas, 1 de 4★; a cada 3, 1 de 5★ (a 6ª dá as três). As escolhas ficam guardadas até usar.
-   Fica no perfil (mv:prof.ul = {g: partidas contadas, ids: [liberados], pend: {3:n,4:n,5:n}}); depois pode ir pro Supabase.
-   Só valem pra montagem do seu time: o computador e os outros jogadores usam qualquer um. Personagem "em breve" não entra no sorteio da escolha. */
-const UNLOCKS=false;
-const UL_EVERY={3:1,4:2,5:3};
-const ulOf=p=>{const u=p&&p.ul&&typeof p.ul==='object'?p.ul:{};return {g:+u.g||0,ids:Array.isArray(u.ids)?u.ids.filter(id=>RBY[id]):[],pend:Object.assign({3:0,4:0,5:0},u.pend)}};
+   Começam liberados os de 1★ e 2★, e quem cria a conta ganha 2 escolhas de qualquer estrela (pend[0]; vale também pra perfil
+   que já existia quando o desbloqueio for ligado). Cada partida online terminada (vitória ou derrota; treino e quem só assiste
+   não contam) dá 1 escolha, alternando 3★, 4★ e 5★ (ver unlockGame). As escolhas ficam guardadas até usar.
+   Fica no perfil (mv:prof.ul = {g: partidas contadas, ids: [liberados], pend: {0: qualquer estrela, 3:n, 4:n, 5:n}}); depois pode ir pro Supabase.
+   Só valem pra montagem do seu time: o computador e os outros jogadores usam qualquer um. Personagem "em breve" não entra na escolha. */
+const UNLOCKS=false,UL_START=2;
+const ulOf=p=>{const has=p&&p.ul&&typeof p.ul==='object',u=has?p.ul:{};return {g:+u.g||0,ids:Array.isArray(u.ids)?u.ids.filter(id=>RBY[id]):[],pend:Object.assign({0:has?0:UL_START,3:0,4:0,5:0},u.pend)}};
 const ulFree=id=>(RBY[id].stars||0)<=2;
 function isLocked(id){if(!UNLOCKS||!RBY[id]||ulFree(id))return false;const p=getProf();return !ulOf(p).ids.includes(id)}
-// Personagens ainda presos de uma estrela, que dá pra escolher (sem os em breve e sem as cartas escondidas).
-const ulChoices=(st,u)=>CHARS.filter(c=>!c.hidden&&!c.soon&&c.stars===st&&!u.ids.includes(c.i)).map(c=>c.i);
-function unlockGame(p){const u=ulOf(p);u.g++;for(const st of [3,4,5])if(u.g%UL_EVERY[st]===0)u.pend[st]++;p.ul=u}
-// Escolhas que ainda dá pra usar (se não sobrar ninguém daquela estrela, a escolha não aparece).
-function ulPending(){if(!UNLOCKS)return [];const p=getProf();if(!p)return [];const u=ulOf(p);return [5,4,3].filter(st=>u.pend[st]>0&&ulChoices(st,u).length)}
+// Personagens ainda presos de uma estrela (0 = qualquer uma de 3★ a 5★), que dá pra escolher (sem os em breve e sem as cartas escondidas).
+const ulChoices=(st,u)=>CHARS.filter(c=>!c.hidden&&!c.soon&&(st?c.stars===st:c.stars>=3)&&!u.ids.includes(c.i)).map(c=>c.i);
+// 1 escolha por partida, alternando pela regra: a cada 3 partidas é 5★, senão a cada 2 é 4★, senão 3★ (sequência 3,4,5,4,3,5 e repete).
+// Se não sobrar ninguém preso daquela estrela, vale a mais próxima que ainda tiver.
+function unlockGame(p){const u=ulOf(p);u.g++;const want=u.g%3===0?5:u.g%2===0?4:3,order=[want,...[5,4,3].filter(x=>x!==want).sort((a,b)=>Math.abs(a-want)-Math.abs(b-want)||b-a)];
+  const st=order.find(x=>ulChoices(x,u).length>u.pend[x]);if(st)u.pend[st]++;p.ul=u}
+// Escolhas que ainda dá pra usar (se não sobrar ninguém daquela estrela, a escolha não aparece). As de qualquer estrela vêm primeiro.
+function ulPending(){if(!UNLOCKS)return [];const p=getProf();if(!p)return [];const u=ulOf(p);return [0,5,4,3].filter(st=>u.pend[st]>0&&ulChoices(st,u).length)}
 function showUnlock(then){
   const sts=ulPending();if(!sts.length){if(then)then();return}
-  const st=sts[0],p=getProf(),u=ulOf(p),ids=ulChoices(st,u),ov=document.createElement('div');ov.className='ul-ov';
-  ov.innerHTML=`<div class="mn-box"><h2>Novo personagem!</h2><p>Você ganhou 1 personagem de ${starsOf(st)} ${st} estrelas${u.pend[st]>1?` (tem ${u.pend[st]} pra escolher)`:''}. Escolha quem vai entrar no seu time.</p><div class="grid">${ids.map(id=>`<button class="card" data-id="${esc(id)}"><span class="pic">${charArt(id)}</span><span class="nm">${esc(RBY[id].n)}</span><span class="uni">${esc(RBY[id].u)}</span>${starsOf(st)}</button>`).join('')}</div><button class="btn" id="ullater">Escolher depois</button></div>`;
+  const st=sts[0],p=getProf(),u=ulOf(p),ids=ulChoices(st,u).sort((a,b)=>RBY[b].stars-RBY[a].stars),ov=document.createElement('div');ov.className='ul-ov';
+  const what=st?`1 personagem de ${starsOf(st)} ${st} estrelas`:`1 personagem de qualquer estrela`,more=u.pend[st]>1?` (tem ${u.pend[st]} pra escolher)`:'';
+  ov.innerHTML=`<div class="mn-box"><h2>${st?'Novo personagem!':'Escolha seus primeiros personagens'}</h2><p>Você ganhou ${what}${more}. Escolha quem vai entrar no seu time.</p><div class="grid">${ids.map(id=>`<button class="card" data-id="${esc(id)}"><span class="pic">${charArt(id)}</span><span class="nm">${esc(RBY[id].n)}</span><span class="uni">${esc(RBY[id].u)}</span>${starsOf(RBY[id].stars)}</button>`).join('')}</div><button class="btn" id="ullater">Escolher depois</button></div>`;
   document.body.appendChild(ov);
   ov.querySelectorAll('.card').forEach(b=>b.onclick=()=>{const p2=getProf(),u2=ulOf(p2);if(!u2.ids.includes(b.dataset.id)){u2.ids.push(b.dataset.id);u2.pend[st]=Math.max(0,u2.pend[st]-1)}p2.ul=u2;saveProf(p2);ov.remove();sfx('win');showUnlock(then)});
-  $('#ullater',ov).onclick=()=>{ov.remove();if(then)then()};
+  $('#ullater',ov).onclick=()=>{const p2=getProf();if(p2&&!p2.ul){p2.ul=ulOf(p2);saveProf(p2)}ov.remove();if(then)then()};
 }
 const profAvatar=(id,cls)=>`<span class="${cls||'pf-av'}">${id&&iconUrl(id)?`<img src="${iconUrl(id)}" alt="" draggable="false" onerror="this.remove()">`:''}</span>`;
 const plural=(n,a,b)=>`${n} ${n===1?a:b}`;
@@ -2036,12 +2121,14 @@ function showProfile(first){
   const p=getProf()||{nick:store.get('mv:nick')||'',av:'',st:{on:{w:0,g:0},cpu:{w:0,g:0}},done:[]};
   let av=p.av||CHARS[0].i;
   const line=(t,s)=>`<div class="pf-row"><b>${t}</b><span>${plural(s.w,'vitória','vitórias')} em ${plural(s.g,'partida','partidas')}</span></div>`;
-  ov.innerHTML=`<div class="mn-box pf-box"><h2>${first?'Crie seu perfil':'Seu perfil'}</h2>${first?'<p>Escolha como os outros vão te ver. Fica salvo só neste aparelho.</p>':''}
+  ov.innerHTML=`<div class="mn-box pf-box"><h2>${first?'Crie seu perfil':'Seu perfil'}</h2>${first?'<p>Escolha como os outros vão te ver. Fica salvo neste aparelho, ou na sua conta se você entrar lá embaixo.</p>':''}
     <label class="pf-lab">Apelido<input id="pfnick" maxlength="16" autocomplete="nickname" placeholder="Como os outros vão te ver" value="${esc(p.nick)}"></label>
     <div class="pf-lab">Foto</div><div class="pf-grid" role="group" aria-label="Foto do perfil">${CHARS.filter(c=>!c.hidden).map(c=>`<button class="pf-pick" data-av="${esc(c.i)}" aria-pressed="${c.i===av}" aria-label="${esc(c.n)}" title="${esc(c.n)}">${profAvatar(c.i,'pf-pic')}</button>`).join('')}</div>
     ${first?'':`<div class="pf-stats">${line('Online',p.st.on)}${line('Treino',p.st.cpu)}</div>`}
     <p class="err" id="pferr" role="alert"></p>
-    <div class="pf-btns">${first?'':'<button class="btn" id="pfcancel">Cancelar</button>'}<button class="btn primary" id="pfsave">Salvar</button></div></div>`;
+    <div class="pf-btns">${first?'':'<button class="btn" id="pfcancel">Cancelar</button>'}<button class="btn primary" id="pfsave">Salvar</button></div>
+    <h2>Conta</h2><div class="pf-acct" id="pfacct">${acctHTML()}</div></div>`;
+  bindAcct();if(!SB.cli)sbLoad().then(()=>sbRefreshUI());
   ov.querySelectorAll('[data-av]').forEach(b=>b.onclick=()=>{av=b.dataset.av;ov.querySelectorAll('[data-av]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.av===av)))});
   const close=()=>{ov.hidden=true;ov.innerHTML='';ov.onclick=null};
   const save=()=>{const n=cleanText($('#pfnick').value).slice(0,16);if(!n){$('#pferr').textContent='Escolha um apelido.';$('#pfnick').focus();return}
@@ -3679,6 +3766,7 @@ function renderEnd(){
 
 /* ---------- boot ---------- */
 (function boot(){
+  setTimeout(()=>sbLoad().then(()=>sbRefreshUI()),300); // contas: restaura a sessão e traz o perfil da conta
   const m=/^#sala-([a-z0-9]{4})$/.exec(location.hash||'');
   if(m)renderOnline(m[1]);else renderHome();
 })();
